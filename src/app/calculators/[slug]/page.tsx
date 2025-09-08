@@ -1,10 +1,9 @@
 // src/app/calculators/[slug]/page.tsx
 
 import Link from 'next/link';
-import { calculatorList } from '@/lib/data/siteLists'; // Make sure you're importing from the correct new file
+import { calculatorList } from '@/lib/data/siteLists';
 import type { Metadata } from 'next';
 
-// Import all your calculator components
 import PercentageCalculator from '@/components/calculators/PercentageCalculator';
 import BmiCalculator from '@/components/calculators/BmiCalculator';
 import GpaCalculator from '@/components/calculators/GpaCalculator';
@@ -14,9 +13,9 @@ import TrigonometryCalculator from '@/components/calculators/TrigonometryCalcula
 import FinancialCalculators from '@/components/calculators/FinancialCalculators';
 import ElectricityCalculators from '@/components/calculators/ElectricityCalculators';
 
-// ✨ FIX: Define the props type explicitly
+// FIX: Define the props type to handle the Promise
 type PageProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
@@ -26,7 +25,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const calc = calculatorList.find(c => c.slug === params.slug);
+  const resolvedParams = await params;
+  const calc = calculatorList.find(c => c.slug === resolvedParams.slug);
   if (!calc) {
     return { title: "Calculator Not Found" };
   }
@@ -36,8 +36,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default function CalculatorPage({ params }: { params: Awaited<{ slug: string }> }) {
-  const calculatorData = calculatorList.find(c => c.slug === params.slug);
+export default async function CalculatorPage({ params }: PageProps) {
+  const resolvedParams = await params;
+  const calculatorData = calculatorList.find(c => c.slug === resolvedParams.slug);
 
   if (!calculatorData) {
     return <div>Calculator not found</div>;
@@ -50,13 +51,13 @@ export default function CalculatorPage({ params }: { params: Awaited<{ slug: str
     'number-converter': <NumberConverter />,
     'scientific-calculator': <GeoGebraCalculator />,
     'trigonometry-calculator': <TrigonometryCalculator />,
-    'mortgage-calculator': <FinancialCalculators slug={params.slug} />,
-    'compound-interest-calculator': <FinancialCalculators slug={params.slug} />,
-    'simple-interest-calculator': <FinancialCalculators slug={params.slug} />,
-    'discount-calculator': <FinancialCalculators slug={params.slug} />,
-    'electricity-bill-calculator': <ElectricityCalculators slug={params.slug} />,
-    'energy-consumption-calculator': <ElectricityCalculators slug={params.slug} />,
-    'energy-cost-calculator': <ElectricityCalculators slug={params.slug} />,
+    'mortgage-calculator': <FinancialCalculators slug={resolvedParams.slug} />,
+    'compound-interest-calculator': <FinancialCalculators slug={resolvedParams.slug} />,
+    'simple-interest-calculator': <FinancialCalculators slug={resolvedParams.slug} />,
+    'discount-calculator': <FinancialCalculators slug={resolvedParams.slug} />,
+    'electricity-bill-calculator': <ElectricityCalculators slug={resolvedParams.slug} />,
+    'energy-consumption-calculator': <ElectricityCalculators slug={resolvedParams.slug} />,
+    'energy-cost-calculator': <ElectricityCalculators slug={resolvedParams.slug} />,
   };
   
   return (
@@ -73,11 +74,10 @@ export default function CalculatorPage({ params }: { params: Awaited<{ slug: str
             <p className="text-slate-600 mt-2">{calculatorData.description}</p>
         </div>
         
-        {componentMap[params.slug] || <div>Calculator not found.</div>}
+        {componentMap[resolvedParams.slug] || <div>Calculator not found.</div>}
       </div>
       
-      {/* ... rest of your JSX for details/formula ... */}
-       {calculatorData.details && (
+      {calculatorData.details && (
         <div className="mt-8 bg-white p-6 border rounded-lg shadow-sm space-y-6">
           <div>
             <h2 className="text-2xl font-semibold mb-2">What is a {calculatorData.title}?</h2>
