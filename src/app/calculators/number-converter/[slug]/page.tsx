@@ -1,10 +1,9 @@
-// src/app/calculators/number-converter/[slug]/page.tsx
 import NumberConverter from "@/components/calculators/NumberConverter";
 import { numberConversionsList } from "@/lib/data/siteLists";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-// ✨ FIX: More explicit props definition
+// This explicit PageProps interface is required to fix the build error
 interface PageProps {
   params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
@@ -23,7 +22,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         description: conv ? `Convert numbers from ${conv.from} to ${conv.to}.` : "Convert numbers between different bases.",
     };
 }
-
 
 export default function SpecificNumberConverterPage({ params }: PageProps) {
     const conversion = numberConversionsList.find(c => c.slug === params.slug);
