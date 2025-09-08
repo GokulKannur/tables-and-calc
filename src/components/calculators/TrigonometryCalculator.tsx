@@ -6,7 +6,6 @@ import { evaluate } from 'mathjs';
 
 // Helper to convert degrees to radians and vice-versa
 const toRadians = (deg: number) => deg * (Math.PI / 180);
-// ✨ FIX: Corrected the conversion from radians to degrees
 const toDegrees = (rad: number) => rad * (180 / Math.PI);
 
 // List of functions for the dropdown
@@ -83,7 +82,7 @@ export default function TrigonometryCalculator() {
             const expr = `${func}(${funcAngle} ${funcAngleUnit})`;
             const result = evaluate(expr);
             setFuncResult(parseFloat(result.toFixed(10)).toString());
-        } catch (e) {
+        } catch (_e) { // FIX: Added underscore to unused variable
             setFuncResult('Invalid input');
         }
     };
@@ -92,7 +91,7 @@ export default function TrigonometryCalculator() {
          try {
             const result = evaluate(expression);
             setExpressionResult(parseFloat(result.toFixed(10)).toString());
-        } catch (e) {
+        } catch (_e) { // FIX: Added underscore to unused variable
             setExpressionResult('Invalid expression');
         }
     };
@@ -135,7 +134,6 @@ export default function TrigonometryCalculator() {
             {/* --- Section 3: Trigonometric Expression Calculator --- */}
             <div className="bg-white p-6 border rounded-lg shadow-sm space-y-4">
                  <h2 className="text-2xl font-bold text-center">Trigonometric Expression Calculator</h2>
-                 {/* ✨ FIX: Corrected the example text format */}
                  <p className="text-sm text-center text-gray-500">Example: sin(45 deg) + cos(pi/3 rad)</p>
                  <div className="flex flex-col sm:flex-row items-center gap-2">
                     <input type="text" value={expression} onChange={e => setExpression(e.target.value)} className="w-full flex-grow p-2 border rounded-md font-mono" placeholder="Enter expression"/>

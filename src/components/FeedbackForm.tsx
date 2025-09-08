@@ -8,7 +8,7 @@ export default function FeedbackForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // IMPORTANT: Replace with your actual Formspree URL
-  const FORMSPREE_URL = "https://formspree.io/f/YOUR_UNIQUE_CODE";
+  const FORMSPREE_URL = "https://formspree.io/f/meolvnoo";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,7 +30,7 @@ export default function FeedbackForm() {
         } else {
             setResponseMessage('Something went wrong. Please try again.');
         }
-    } catch (error) {
+    } catch (_error) { // FIX: Added underscore to unused variable
         setResponseMessage('An error occurred. Please try again later.');
     } finally {
         setIsSubmitting(false);

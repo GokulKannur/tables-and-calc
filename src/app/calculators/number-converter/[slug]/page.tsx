@@ -1,13 +1,18 @@
-import NumberConverter from '@/components/calculators/NumberConverter';
-import { numberConversionsList } from '@/lib/unitData';
+import NumberConverter from "@/components/calculators/NumberConverter";
+import { numberConversionsList } from "@/lib/data/siteLists";
 import type { Metadata } from 'next';
 import Link from 'next/link';
+
+// ✨ FIX: Define the props type explicitly
+type PageProps = {
+  params: { slug: string };
+};
 
 export async function generateStaticParams() {
   return numberConversionsList.map(conv => ({ slug: conv.slug }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const conversion = numberConversionsList.find(c => c.slug === params.slug);
     if (!conversion) return { title: "Converter Not Found" };
     return {
@@ -16,7 +21,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
 }
 
-export default function SpecificNumberConverterPage({ params }: { params: { slug: string }}) {
+export default function SpecificNumberConverterPage({ params }: PageProps) {
   const conversion = numberConversionsList.find(c => c.slug === params.slug);
   if (!conversion) return <div>Converter not found</div>;
 
