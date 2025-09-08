@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default function CalculatorPage({ params }: PageProps) {
+export default function CalculatorPage({ params }: { params: Awaited<{ slug: string }> }) {
   const calculatorData = calculatorList.find(c => c.slug === params.slug);
 
   if (!calculatorData) {
