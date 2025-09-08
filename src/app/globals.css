@@ -1,10 +1,10 @@
-<<<<<<< HEAD
 @import "tailwindcss";
-=======
-/* src/app/globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-/* src/app/globals.css */
-
-@import "tailwindcss";
-@tailwind utilities;
->>>>>>> ab0bdab96980981d22c4cbc03490c899761ae99b
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: theme('colors.slate.50');
+    color: theme('colors.slate.800');
+  }
+}
