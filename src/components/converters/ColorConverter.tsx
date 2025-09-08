@@ -1,4 +1,3 @@
-// src/components/converters/ColorConverter.tsx
 "use client";
 
 import { useState, useMemo, ChangeEvent } from "react";
@@ -20,21 +19,21 @@ const parse = {
   RGB: (rgbStr: string): RGB | null => {
     const match = rgbStr.match(/(\d+)[, ]+(\d+)[, ]+(\d+)/);
     if (!match) return null;
-    const [_, r, g, b] = match.map(Number);
+    const [_match, r, g, b] = match.map(Number);
     if ([r, g, b].some(v => v < 0 || v > 255)) return null;
     return { r, g, b };
   },
   HSL: (hslStr: string): HSL | null => {
     const match = hslStr.match(/(\d+)[, ]+(\d+)[, ]+(\d+)/);
     if (!match) return null;
-    const [_, h, s, l] = match.map(Number);
+    const [_match, h, s, l] = match.map(Number);
     if (h < 0 || h > 360 || s < 0 || s > 100 || l < 0 || l > 100) return null;
     return { h, s, l };
   },
   CMYK: (cmykStr: string): CMYK | null => {
     const match = cmykStr.match(/(\d+)[, ]+(\d+)[, ]+(\d+)[, ]+(\d+)/);
     if (!match) return null;
-    const [_, c, m, y, k] = match.map(Number);
+    const [_match, c, m, y, k] = match.map(Number);
     if ([c, m, y, k].some(v => v < 0 || v > 100)) return null;
     return { c, m, y, k };
   }
@@ -98,10 +97,11 @@ const format = {
 };
 
 const COLOR_FORMATS: ColorFormat[] = ["Hex", "RGB", "HSL", "CMYK"];
+
 const POPULAR_CONVERSIONS = [
-  { from: "Hex", to: "RGB", example: "#1a8fe3" },
-  { from: "RGB", to: "Hex", example: "26, 143, 227" },
-  { from: "RGB", to: "HSL", example: "227, 26, 88" },
+  { from: "Hex" as ColorFormat, to: "RGB" as ColorFormat, example: "#1a8fe3" },
+  { from: "RGB" as ColorFormat, to: "Hex" as ColorFormat, example: "26, 143, 227" },
+  { from: "RGB" as ColorFormat, to: "HSL" as ColorFormat, example: "227, 26, 88" },
 ];
 
 // --- COMPONENT ---
@@ -110,7 +110,6 @@ export default function ColorConverter() {
   const [toType, setToType] = useState<ColorFormat>("RGB");
   const [inputValue, setInputValue] = useState("#1a8fe3");
 
-  // A central place to get a valid RGB color from the current input, or null if invalid.
   const sourceRgb = useMemo((): RGB | null => {
     const parsedValue = parse[fromType](inputValue);
     if (!parsedValue) return null;
@@ -132,16 +131,11 @@ export default function ColorConverter() {
     if (!sourceRgb) return "Invalid color value";
 
     switch (toType) {
-      case "Hex":
-        return format.Hex(sourceRgb);
-      case "RGB":
-        return format.RGB(sourceRgb);
-      case "HSL":
-        return format.HSL(convert.rgbToHsl(sourceRgb));
-      case "CMYK":
-        return format.CMYK(convert.rgbToCmyk(sourceRgb));
-      default:
-        return "Conversion not available";
+      case "Hex": return format.Hex(sourceRgb);
+      case "RGB": return format.RGB(sourceRgb);
+      case "HSL": return format.HSL(convert.rgbToHsl(sourceRgb));
+      case "CMYK": return format.CMYK(convert.rgbToCmyk(sourceRgb));
+      default: return "Conversion not available";
     }
   }, [sourceRgb, toType]);
 
@@ -152,7 +146,7 @@ export default function ColorConverter() {
   const handleSwap = () => {
     setFromType(toType);
     setToType(fromType);
-    if (sourceRgb) { // Check for a valid color before swapping
+    if (sourceRgb) {
       setInputValue(outputValue);
     }
   };
@@ -169,75 +163,71 @@ export default function ColorConverter() {
   };
 
   return (
-    <div className="max-w-md mx-auto space-y-6">
-      <div className="p-4 border rounded-lg shadow-sm space-y-4">
-        {/* From Section */}
-        <div className="flex items-end gap-2">
-          <div className="flex-grow">
-            <label className="text-sm font-medium text-gray-700">From</label>
-            <input
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              className="w-full p-2 mt-1 border rounded"
-              placeholder={fromType === 'RGB' ? 'e.g., 255, 99, 71' : '#ff6347'}
-            />
-          </div>
-          <div>
-            <select
-              value={fromType}
-              // ✅ FIX: Added `as ColorFormat` to fix the TypeScript error.
-              onChange={(e) => setFromType(e.target.value as ColorFormat)}
-              className="p-2 border rounded h-[42px]"
-            >
-              {COLOR_FORMATS.map((f) => <option key={f} value={f}>{f}</option>)}
-            </select>
-          </div>
-        </div>
-
-        <div className="flex justify-center -my-2">
-            <button onClick={handleSwap} className="p-1 rounded-full hover:bg-gray-200" title="Swap formats">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
-            </button>
-        </div>
-
-        {/* To Section */}
-        <div className="flex items-end gap-2">
-          <div className="flex-grow">
-            <label className="text-sm font-medium text-gray-700">To</label>
-            <input
-              value={outputValue}
-              readOnly
-              className="w-full p-2 mt-1 bg-gray-100 border rounded cursor-not-allowed"
-            />
-          </div>
-          <div>
-            <select
-              value={toType}
-              // ✅ FIX: Added `as ColorFormat` to fix the TypeScript error.
-              onChange={(e) => setToType(e.target.value as ColorFormat)}
-              className="p-2 border rounded h-[42px]"
-            >
-              {COLOR_FORMATS.map((f) => <option key={f} value={f}>{f}</option>)}
-            </select>
-          </div>
-        </div>
-        
-        {/* Visual Color Picker */}
-        <div>
-          <label className="text-sm font-medium text-gray-700">Visual Picker</label>
+    <div className="p-4 border rounded-lg shadow-sm space-y-4">
+      {/* From Section */}
+      <div className="flex items-end gap-2">
+        <div className="flex-grow">
+          <label className="text-sm font-medium text-gray-700">From</label>
           <input
-            type="color"
-            value={displayColor}
-            onChange={handleColorPickerChange}
-            className="w-full h-10 p-1 mt-1 border rounded cursor-pointer"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            className="w-full p-2 mt-1 border rounded"
+            placeholder={fromType === 'RGB' ? 'e.g., 255, 99, 71' : '#ff6347'}
           />
         </div>
-
-        {/* Color Preview Swatch */}
-        <div className="h-12 w-full rounded border" style={{ backgroundColor: displayColor }} />
+        <div>
+          <select
+            value={fromType}
+            onChange={(e) => setFromType(e.target.value as ColorFormat)}
+            className="p-2 border rounded h-[42px]"
+          >
+            {COLOR_FORMATS.map((f) => <option key={f} value={f}>{f}</option>)}
+          </select>
+        </div>
       </div>
 
-      <div className="p-4 border rounded-lg shadow-sm">
+      <div className="flex justify-center -my-2">
+          <button onClick={handleSwap} className="p-1 rounded-full hover:bg-gray-200" title="Swap formats">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+          </button>
+      </div>
+
+      {/* To Section */}
+      <div className="flex items-end gap-2">
+        <div className="flex-grow">
+          <label className="text-sm font-medium text-gray-700">To</label>
+          <input
+            value={outputValue}
+            readOnly
+            className="w-full p-2 mt-1 bg-gray-100 border rounded cursor-not-allowed"
+          />
+        </div>
+        <div>
+          <select
+            value={toType}
+            onChange={(e) => setToType(e.target.value as ColorFormat)}
+            className="p-2 border rounded h-[42px]"
+          >
+            {COLOR_FORMATS.map((f) => <option key={f} value={f}>{f}</option>)}
+          </select>
+        </div>
+      </div>
+      
+      {/* Visual Color Picker */}
+      <div>
+        <label className="text-sm font-medium text-gray-700">Visual Picker</label>
+        <input
+          type="color"
+          value={displayColor}
+          onChange={handleColorPickerChange}
+          className="w-full h-10 p-1 mt-1 border rounded cursor-pointer"
+        />
+      </div>
+
+      {/* Color Preview Swatch */}
+      <div className="h-12 w-full rounded border" style={{ backgroundColor: displayColor }} />
+
+      <div className="p-4 border rounded-lg shadow-sm -m-4 mt-6">
         <h3 className="font-semibold">Popular Color Conversions</h3>
         <div className="flex flex-wrap items-center gap-4 mt-2 text-blue-600">
           {POPULAR_CONVERSIONS.map(({ from, to, example }) => (
