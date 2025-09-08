@@ -1,1 +1,10 @@
+<<<<<<< HEAD
 @import "tailwindcss";
+=======
+/* src/app/globals.css */
+
+/* src/app/globals.css */
+
+@import "tailwindcss";
+@tailwind utilities;
+>>>>>>> ab0bdab96980981d22c4cbc03490c899761ae99b
