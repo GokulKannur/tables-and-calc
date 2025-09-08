@@ -1,9 +1,10 @@
 // src/app/calculators/[slug]/page.tsx
 
 import Link from 'next/link';
-import { calculatorList } from '@/lib/unitData';
+import { calculatorList } from '@/lib/data/siteLists'; // Make sure you're importing from the correct new file
 import type { Metadata } from 'next';
 
+// Import all your calculator components
 import PercentageCalculator from '@/components/calculators/PercentageCalculator';
 import BmiCalculator from '@/components/calculators/BmiCalculator';
 import GpaCalculator from '@/components/calculators/GpaCalculator';
@@ -11,7 +12,12 @@ import NumberConverter from '@/components/calculators/NumberConverter';
 import GeoGebraCalculator from '@/components/GeoGebraCalculator';
 import TrigonometryCalculator from '@/components/calculators/TrigonometryCalculator';
 import FinancialCalculators from '@/components/calculators/FinancialCalculators';
-import ElectricityCalculators from '@/components/calculators/ElectricityCalculators'; // ✨ 1. IMPORT the new component
+import ElectricityCalculators from '@/components/calculators/ElectricityCalculators';
+
+// ✨ FIX: Define the props type explicitly
+type PageProps = {
+  params: { slug: string };
+};
 
 export async function generateStaticParams() {
   return calculatorList.map((calc) => ({
@@ -19,7 +25,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: { slug:string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const calc = calculatorList.find(c => c.slug === params.slug);
   if (!calc) {
     return { title: "Calculator Not Found" };
@@ -30,14 +36,13 @@ export async function generateMetadata({ params }: { params: { slug:string } }):
   };
 }
 
-export default function CalculatorPage({ params }: { params: { slug: string } }) {
+export default function CalculatorPage({ params }: PageProps) {
   const calculatorData = calculatorList.find(c => c.slug === params.slug);
 
   if (!calculatorData) {
     return <div>Calculator not found</div>;
   }
-  
-  // ✨ 2. ADD THE NEW SLUGS to your component map
+
   const componentMap: { [key: string]: React.ReactNode } = {
     'percentage-calculator': <PercentageCalculator />,
     'bmi-calculator': <BmiCalculator />,
@@ -49,7 +54,6 @@ export default function CalculatorPage({ params }: { params: { slug: string } })
     'compound-interest-calculator': <FinancialCalculators slug={params.slug} />,
     'simple-interest-calculator': <FinancialCalculators slug={params.slug} />,
     'discount-calculator': <FinancialCalculators slug={params.slug} />,
-    // --- Add all your new electricity slugs here ---
     'electricity-bill-calculator': <ElectricityCalculators slug={params.slug} />,
     'energy-consumption-calculator': <ElectricityCalculators slug={params.slug} />,
     'energy-cost-calculator': <ElectricityCalculators slug={params.slug} />,
@@ -71,8 +75,9 @@ export default function CalculatorPage({ params }: { params: { slug: string } })
         
         {componentMap[params.slug] || <div>Calculator not found.</div>}
       </div>
-
-      {calculatorData.details && (
+      
+      {/* ... rest of your JSX for details/formula ... */}
+       {calculatorData.details && (
         <div className="mt-8 bg-white p-6 border rounded-lg shadow-sm space-y-6">
           <div>
             <h2 className="text-2xl font-semibold mb-2">What is a {calculatorData.title}?</h2>
@@ -87,7 +92,6 @@ export default function CalculatorPage({ params }: { params: { slug: string } })
           </div>
         </div>
       )}
-
       {calculatorData.details?.usage && (
         <div className="mt-8 bg-white p-6 border rounded-lg shadow-sm space-y-4">
             <h2 className="text-2xl font-semibold mb-4">{calculatorData.details.usage.title}</h2>
