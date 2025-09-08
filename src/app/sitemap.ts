@@ -1,47 +1,63 @@
-// src/app/sitemap.ts
-
 import { MetadataRoute } from 'next';
-import { popularConversions, calculatorList, tableList, symbolList } from '@/lib/unitData';
+// Import data from our new, organized files
+import { calculatorList, tableList, symbolList } from '@/lib/data/siteLists'; 
+import { popularConversions } from '@/lib/data/conversions';
+import { resourcesList } from '@/lib/data/resourcesData';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // IMPORTANT: Replace this with your actual domain name when you deploy
-  const baseUrl = 'https://www.yourwebsite.com'; 
+  const siteUrl = 'https://tablesandcalc.online';
 
-  const converterUrls = popularConversions.map(item => ({
-    url: `${baseUrl}/converters/${item.slug}`,
+  // Static pages (main sections of your site)
+  const staticRoutes = [
+    '', // Homepage
+    '/calculators',
+    '/converters',
+    '/tables',
+    '/symbols',
+    '/resources',
+    '/about',
+    '/feedback',
+  ].map((route) => ({
+    url: `${siteUrl}${route}`,
     lastModified: new Date(),
   }));
 
-  const calculatorUrls = calculatorList.map(item => ({
-    url: `${baseUrl}/calculators/${item.slug}`,
+  // Dynamic pages for each calculator
+  const calculatorRoutes = calculatorList.map((calc) => ({
+    url: `${siteUrl}/calculators/${calc.slug}`,
     lastModified: new Date(),
   }));
 
-  const tableUrls = tableList.map(item => ({
-    url: `${baseUrl}/tables/${item.slug}`,
+  // Dynamic pages for each popular converter
+  const converterRoutes = popularConversions.map((conv) => ({
+    url: `${siteUrl}/converters/${conv.slug}`,
     lastModified: new Date(),
   }));
   
-  const symbolUrls = symbolList.map(item => ({
-    url: `${baseUrl}/symbols/${item.slug}`,
+  // Dynamic pages for each resource/article
+  const resourceRoutes = resourcesList.map((resource) => ({
+    url: `${siteUrl}/resources/${resource.slug}`,
     lastModified: new Date(),
   }));
 
-  // Add the main static pages
-  const staticUrls = [
-    { url: baseUrl, lastModified: new Date() },
-    { url: `${baseUrl}/converters`, lastModified: new Date() },
-    { url: `${baseUrl}/calculators`, lastModified: new Date() },
-    { url: `${baseUrl}/tables`, lastModified: new Date() },
-    { url: `${baseUrl}/symbols`, lastModified: new Date() },
-    { url: `${baseUrl}/express-converter`, lastModified: new Date() },
-  ];
+  // Dynamic pages for tables and symbols
+  const tableRoutes = tableList.map((table) => ({
+    url: `${siteUrl}/tables/${table.slug}`,
+    lastModified: new Date(),
+  }));
 
+  const symbolRoutes = symbolList.map((symbol) => ({
+    url: `${siteUrl}/symbols/${symbol.slug}`,
+    lastModified: new Date(),
+  }));
+
+  // Combine all routes into a single sitemap
   return [
-    ...staticUrls,
-    ...converterUrls,
-    ...calculatorUrls,
-    ...tableUrls,
-    ...symbolUrls,
+    ...staticRoutes,
+    ...calculatorRoutes,
+    ...converterRoutes,
+    ...resourceRoutes,
+    ...tableRoutes,
+    ...symbolRoutes,
   ];
 }

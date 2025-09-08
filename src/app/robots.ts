@@ -1,12 +1,12 @@
-// src/app/robots.ts
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
-      userAgent: '*',
-      allow: '/',
+      userAgent: '*', // Allow all search engine crawlers
+      allow: '/',     // Allow them to crawl the entire site
     },
-    sitemap: 'https://YOUR_DOMAIN.com/sitemap.xml',
+    // This tells crawlers where to find the map of your site
+    sitemap: 'https://tablesandcalc.online/sitemap.xml',
   };
 }
