@@ -6,22 +6,37 @@ import Fuse from 'fuse.js';
 import { searchIndex } from '@/lib/searchIndex';
 import Link from 'next/link';
 
+// Define the shape of the data in your searchIndex
+interface SearchItem {
+  title: string;
+  description: string;
+  path: string;
+  keywords?: string;
+}
+
+// Define the shape of the search result item that Fuse.js returns
+interface FuseResult {
+  item: SearchItem;
+  refIndex: number;
+  score?: number;
+}
+
 // Configure Fuse.js
 const fuse = new Fuse(searchIndex, {
   keys: ['title', 'description', 'keywords'],
   includeScore: true,
-  threshold: 0.4, // Adjust this for more/less "fuzzy" results
+  threshold: 0.4,
 });
 
 export default function Search() {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<FuseResult[]>([]);
   const [isFocused, setIsFocused] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (query) {
-      const searchResults = fuse.search(query);
+      const searchResults = fuse.search(query); 
       setResults(searchResults);
     } else {
       setResults([]);
@@ -41,13 +56,16 @@ export default function Search() {
     };
   }, [searchContainerRef]);
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  }
 
   return (
     <div className="relative" ref={searchContainerRef}>
       <input
         type="text"
         value={query}
-        onChange={e => setQuery(e.target.value)}
+        onChange={handleInputChange}
         onFocus={() => setIsFocused(true)}
         placeholder="Search for a tool..."
         className="w-48 p-2 border border-slate-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-all"
