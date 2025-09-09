@@ -1,18 +1,21 @@
 // src/app/page.tsx
-
 import Link from 'next/link';
 
 export default function HomePage() {
   return (
     <div className="max-w-5xl mx-auto">
       <div className="text-center py-10">
-        <h1 className="text-4xl font-bold mb-2">Engineering & Science Toolkit</h1>
-        <p className="text-lg text-slate-600">
-          A collection of free, simple, and modern tools for students and professionals.
+        {/* ✅ Keyword-rich H1 for SEO */}
+        <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
+          Online Calculators, Converters & Science Tools
+        </h1>
+        <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          A collection of free, simple, and modern tools for students and
+          professionals.
         </p>
       </div>
 
-      {/* This is the new 2-column grid layout */}
+      {/* ✅ Two-column grid with tool links */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
         <Link
           href="/calculators"
@@ -23,7 +26,7 @@ export default function HomePage() {
             Math, finance, and scientific calculators for various needs.
           </p>
         </Link>
-        
+
         <Link
           href="/converters"
           className="group block p-6 bg-white border rounded-lg shadow-sm hover:shadow-lg hover:border-blue-500 transition-all"
@@ -43,7 +46,7 @@ export default function HomePage() {
             Reference data for materials, constants, and formulas.
           </p>
         </Link>
-        
+
         <Link
           href="/symbols"
           className="group block p-6 bg-white border rounded-lg shadow-sm hover:shadow-lg hover:border-blue-500 transition-all"

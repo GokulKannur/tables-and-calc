@@ -1,3 +1,4 @@
+// src/app/layout.tsx
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -6,15 +7,18 @@ import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const inter = Inter({ subsets: ['latin'] });
 
+// ✅ Improved metadata for SEO with keyword-rich description
 export const metadata: Metadata = {
   title: {
-    default: 'TablesAndCalc | Free Online Calculators & Converters',
+    default: 'Free Online Calculators, Converters & Resources | TablesAndCalc',
     template: '%s | TablesAndCalc',
   },
-  description: 'A modern toolkit of free online calculators, converters, reference tables, and educational resources for students and professionals.',
+  description:
+    'A free toolkit of online calculators, unit converters, reference tables, and symbols. Simple, modern tools for students and professionals.',
   openGraph: {
-    title: 'TablesAndCalc | Free Online Calculators & Converters',
-    description: 'A modern toolkit of free online calculators, converters, and reference tables.',
+    title: 'Free Online Calculators, Converters & Resources | TablesAndCalc',
+    description:
+      'A free toolkit of online calculators, unit converters, reference tables, and symbols.',
     url: 'https://tablesandcalc.online',
     siteName: 'TablesAndCalc',
     type: 'website',
@@ -28,28 +32,32 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <GoogleAnalytics /> 
-      <body className={`${inter.className} flex flex-col min-h-screen bg-gray-50`}>
-        <ClientLayout>
-          {children}
-        </ClientLayout>
-        
+      <GoogleAnalytics />
+      <body
+        className={`${inter.className} flex flex-col min-h-screen bg-gray-50`}
+      >
+        <ClientLayout>{children}</ClientLayout>
+
+        {/* ✅ Schema.org structured data for SEO */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "url": "https://tablesandcalc.online",
-            "name": "TablesAndCalc",
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": {
-                "@type": "EntryPoint",
-                "urlTemplate": "https://tablesandcalc.online?q={search_term_string}"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              url: 'https://tablesandcalc.online',
+              name: 'TablesAndCalc',
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate:
+                    'https://tablesandcalc.online?q={search_term_string}',
+                },
+                'query-input': 'required name=search_term_string',
               },
-              "query-input": "required name=search_term_string"
-            }
-          })}}
+            }),
+          }}
         />
       </body>
     </html>
