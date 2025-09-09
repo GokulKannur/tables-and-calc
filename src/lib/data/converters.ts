@@ -1,18 +1,14 @@
-// src/lib/data/converters.ts
 import type { ConverterCategory } from '../types';
 
 export const converterData: Record<string, ConverterCategory> = {
   length: {
     name: 'Length',
     units: [
-      { id: 'm', name: 'Meter' },
-      { id: 'km', name: 'Kilometer' },
-      { id: 'cm', name: 'Centimeter' },
-      { id: 'mm', name: 'Millimeter' },
-      { id: 'in', name: 'Inch' },
-      { id: 'ft', name: 'Foot' },
+      { id: 'm', name: 'Meter' }, { id: 'km', name: 'Kilometer' }, { id: 'cm', name: 'Centimeter' },
+      { id: 'mm', name: 'Millimeter' }, { id: 'in', name: 'Inch' }, { id: 'ft', name: 'Foot' },
+      { id: 'yd', name: 'Yard' }, { id: 'mi', name: 'Mile' }, { id: 'nm', name: 'Nautical Mile' },
     ],
-    factors: { m: 1, km: 1000, cm: 0.01, mm: 0.001, in: 0.0254, ft: 0.3048 },
+    factors: { m: 1, km: 1000, cm: 0.01, mm: 0.001, in: 0.0254, ft: 0.3048, yd: 0.9144, mi: 1609.34, nm: 1852 },
     info: {
       m: {
         name: 'Meter',
@@ -61,11 +57,10 @@ export const converterData: Record<string, ConverterCategory> = {
   weight: {
     name: 'Weight & Mass',
     units: [
-      { id: 'kg', name: 'Kilogram' },
-      { id: 'lb', name: 'Pound' },
-      { id: 'g', name: 'Gram' },
+      { id: 'kg', name: 'Kilogram' }, { id: 'g', name: 'Gram' }, { id: 'mg', name: 'Milligram' },
+      { id: 'lb', name: 'Pound' }, { id: 'oz', name: 'Ounce' }, { id: 't', name: 'Tonne' },
     ],
-    factors: { kg: 1, lb: 0.453592, g: 0.001 },
+    factors: { kg: 1, g: 0.001, mg: 1e-6, lb: 0.453592, oz: 0.0283495, t: 1000 },
     info: {
       kg: {
         name: 'Kilogram',
@@ -121,48 +116,14 @@ export const converterData: Record<string, ConverterCategory> = {
       },
     },
   },
-  area: {
-    name: 'Area',
-    units: [
-      { id: 'sqm', name: 'Square Meter' },
-      { id: 'sqft', name: 'Square Foot' },
-      { id: 'acre', name: 'Acre' },
-    ],
-    factors: { sqm: 1, sqft: 0.092903, acre: 4046.86 },
-    info: {
-      sqm: {
-        name: 'Square Meter',
-        pluralName: 'Square Meters',
-        definition: 'The square meter is the SI derived unit of area.',
-        history: 'Defined as the area of a square whose sides each measure exactly one meter.',
-        currentUse: 'Used globally for measuring rooms, houses, and land.',
-      },
-      sqft: {
-        name: 'Square Foot',
-        pluralName: 'Square Feet',
-        definition: 'A unit of area used in the imperial and U.S. customary systems.',
-        history: 'Area of a square with sides of 1 foot.',
-        currentUse: 'Common in the United States for real estate and architecture.',
-      },
-      acre: {
-        name: 'Acre',
-        pluralName: 'Acres',
-        definition: 'A unit of land area used in the imperial and U.S. customary systems, equal to 43,560 square feet.',
-        history: 'Historically defined as the area a yoke of oxen could plow in one day.',
-        currentUse: 'Used primarily in the US and UK for measuring plots of land.',
-      },
-    },
-  },
   volume: {
     name: 'Volume',
     units: [
-      { id: 'l', name: 'Liter' },
-      { id: 'ml', name: 'Milliliter' },
-      { id: 'gal', name: 'Gallon (US)' },
-      { id: 'cup', name: 'Cup (US)' },
-      { id: 'tbsp', name: 'Tablespoon (US)' },
+      { id: 'l', name: 'Liter' }, { id: 'ml', name: 'Milliliter' }, { id: 'gal', name: 'Gallon (US)' },
+      { id: 'qt', name: 'Quart (US)' }, { id: 'pt', name: 'Pint (US)' }, { id: 'cup', name: 'Cup (US)' },
+      { id: 'tbsp', name: 'Tablespoon (US)' }, { id: 'tsp', name: 'Teaspoon (US)' },
     ],
-    factors: { l: 1, ml: 0.001, gal: 3.78541, cup: 0.236588, tbsp: 0.0147868 },
+    factors: { l: 1, ml: 0.001, gal: 3.78541, qt: 0.946353, pt: 0.473176, cup: 0.236588, tbsp: 0.0147868, tsp: 0.00492892 },
     info: {
       l: {
         name: 'Liter',
@@ -201,15 +162,44 @@ export const converterData: Record<string, ConverterCategory> = {
       },
     },
   },
+  area: {
+    name: 'Area',
+    units: [
+      { id: 'sqm', name: 'Square Meter' }, { id: 'sqkm', name: 'Square Kilometer' }, { id: 'sqft', name: 'Square Foot' },
+      { id: 'sqyd', name: 'Square Yard' }, { id: 'acre', name: 'Acre' }, { id: 'ha', name: 'Hectare' },
+    ],
+    factors: { sqm: 1, sqkm: 1e6, sqft: 0.092903, sqyd: 0.836127, acre: 4046.86, ha: 10000 },
+    info: {
+      sqm: {
+        name: 'Square Meter',
+        pluralName: 'Square Meters',
+        definition: 'The square meter is the SI derived unit of area.',
+        history: 'Defined as the area of a square whose sides each measure exactly one meter.',
+        currentUse: 'Used globally for measuring rooms, houses, and land.',
+      },
+      sqft: {
+        name: 'Square Foot',
+        pluralName: 'Square Feet',
+        definition: 'A unit of area used in the imperial and U.S. customary systems.',
+        history: 'Area of a square with sides of 1 foot.',
+        currentUse: 'Common in the United States for real estate and architecture.',
+      },
+      acre: {
+        name: 'Acre',
+        pluralName: 'Acres',
+        definition: 'A unit of land area used in the imperial and U.S. customary systems, equal to 43,560 square feet.',
+        history: 'Historically defined as the area a yoke of oxen could plow in one day.',
+        currentUse: 'Used primarily in the US and UK for measuring plots of land.',
+      },
+    },
+  },
   speed: {
     name: 'Speed',
     units: [
-      { id: 'm/s', name: 'Meter/Second' },
-      { id: 'kph', name: 'Kilometer/Hour' },
-      { id: 'mph', name: 'Mile/Hour' },
-      { id: 'knot', name: 'Knot' },
+      { id: 'm/s', name: 'Meter/Second' }, { id: 'kph', name: 'Kilometer/Hour' }, { id: 'mph', name: 'Mile/Hour' },
+      { id: 'knot', name: 'Knot' }, { id: 'fps', name: 'Foot/Second' },
     ],
-    factors: { 'm/s': 1, kph: 0.277778, mph: 0.44704, knot: 0.514444 },
+    factors: { 'm/s': 1, kph: 0.277778, mph: 0.44704, knot: 0.514444, fps: 0.3048 },
     info: {
       'm/s': {
         name: 'Meter/Second',
@@ -485,11 +475,11 @@ export const converterData: Record<string, ConverterCategory> = {
     ],
     factors: { c: 1, mc: 1e-3, uc: 1e-6, nc: 1e-9 },
     info: {
-  c: { name: "Coulomb", pluralName: "Coulombs", definition: "SI unit of electric charge.", history: "Named after Coulomb.", currentUse: "Electrical calculations." },
-  mc: { name: "Millicoulomb", pluralName: "Millicoulombs", definition: "1/1000 C.", history: "", currentUse: "" },
-  uc: { name: "Microcoulomb", pluralName: "Microcoulombs", definition: "1/1,000,000 C.", history: "", currentUse: "" },
-  nc: { name: "Nanocoulomb", pluralName: "Nanocoulombs", definition: "1/1,000,000,000 C.", history: "", currentUse: "" },
-},
+      c: { name: "Coulomb", pluralName: "Coulombs", definition: "SI unit of electric charge.", history: "Named after Coulomb.", currentUse: "Electrical calculations." },
+      mc: { name: "Millicoulomb", pluralName: "Millicoulombs", definition: "1/1000 C.", history: "", currentUse: "" },
+      uc: { name: "Microcoulomb", pluralName: "Microcoulombs", definition: "1/1,000,000 C.", history: "", currentUse: "" },
+      nc: { name: "Nanocoulomb", pluralName: "Nanocoulombs", definition: "1/1,000,000,000 C.", history: "", currentUse: "" },
+    },
   },
   color: {
     name: "Color",
@@ -514,5 +504,31 @@ export const converterData: Record<string, ConverterCategory> = {
     info: {
       basic: { name: "Electrical Calculations", pluralName: "Electrical Calculations", definition: "Common electrical formulas: V = I × R, P = V × I etc.", history: "", currentUse: "Quick calculations" }
     }
+  },
+  force: {
+    name: 'Force',
+    units: [
+        { id: 'n', name: 'Newton' }, { id: 'kn', name: 'Kilonewton' }, { id: 'lbf', name: 'Pound-force' },
+    ],
+    factors: { n: 1, kn: 1000, lbf: 4.44822 },
+    info: {},
+  },
+  torque: {
+    name: 'Torque',
+    units: [
+        { id: 'nm', name: 'Newton-meter' }, { id: 'ft-lb', name: 'Foot-pound' },
+    ],
+    factors: { nm: 1, 'ft-lb': 1.35582 },
+    info: {},
+  },
+  'data-transfer-rate': {
+    name: 'Data Transfer Rate',
+    units: [
+        { id: 'bps', name: 'Bits/sec' }, { id: 'kbps', name: 'Kilobits/sec' }, { id: 'mbps', name: 'Megabits/sec' },
+        { id: 'gbps', name: 'Gigabits/sec' }, { id: 'B/s', name: 'Bytes/sec' }, { id: 'kB/s', name: 'Kilobytes/sec' },
+        { id: 'MB/s', name: 'Megabytes/sec' }, { id: 'GB/s', name: 'Gigabytes/sec' },
+    ],
+    factors: { bps: 1, kbps: 1000, mbps: 1e6, gbps: 1e9, 'B/s': 8, 'kB/s': 8000, 'MB/s': 8e6, 'GB/s': 8e9 },
+    info: {},
   },
 };
