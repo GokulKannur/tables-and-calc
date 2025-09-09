@@ -1,4 +1,4 @@
-// src/app/layout.tsx
+// ✅ layout.tsx
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -7,7 +7,7 @@ import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const inter = Inter({ subsets: ['latin'] });
 
-// ✅ SEO Metadata
+// ✅ SEO Metadata (without themeColor)
 export const metadata: Metadata = {
   title: {
     default: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     description:
       'Free calculators, converters, and reference tools for students and professionals.',
     images: ['https://tablesandcalc.online/og-image.jpg'],
-    creator: '@YourTwitterHandle', // Replace or remove
+    creator: '@YourTwitterHandle',
   },
   icons: {
     icon: '/favicon.ico',
@@ -55,11 +55,11 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://tablesandcalc.online'),
 };
 
-// ✅ Viewport export (fixes themeColor warning)
+// ✅ Move themeColor to viewport
 export const viewport: Viewport = {
-  themeColor: '#ffffff',
   width: 'device-width',
   initialScale: 1,
+  themeColor: '#ffffff', // Your site color
 };
 
 export default function RootLayout({
@@ -70,16 +70,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* ✅ Canonical URL */}
         <link rel="canonical" href="https://tablesandcalc.online" />
-
-        {/* ✅ Robots for SEO */}
         <meta name="robots" content="index, follow" />
-
-        {/* ✅ Author */}
         <meta name="author" content="TablesAndCalc Team" />
-
-        {/* ✅ PWA / Mobile enhancements */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="mobile-web-app-capable" content="yes" />

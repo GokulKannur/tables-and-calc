@@ -1,85 +1,92 @@
-// src/app/page.tsx
 import Link from 'next/link';
 
 export default function HomePage() {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      {/* ✅ Hero Section */}
-      <header className="text-center mb-8">
-        <h1 className="text-3xl md:text-5xl font-extrabold mb-3 leading-tight">
+    <main className="max-w-6xl mx-auto px-4 py-10">
+      {/* HERO SECTION */}
+      <section className="text-center mb-10">
+        <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
           Free Online Calculators, Converters & Science Tools
         </h1>
-        <p className="text-base md:text-lg text-slate-600 max-w-3xl mx-auto">
-          Explore a collection of free calculators, unit converters, reference tables, and symbols. Perfect for students, engineers, and professionals.
+        <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          Explore a modern collection of calculators, unit converters, reference tables, and symbols. Perfect for students, engineers, and professionals.
         </p>
-      </header>
+      </section>
 
-      {/* ✅ Internal Links Grid (Mobile-first design) */}
+      {/* FEATURE GRID */}
       <section>
-        <h2 className="text-xl md:text-2xl font-bold mb-6 text-center">
-          Our Featured Tools
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-          {/* ✅ Card 1 */}
-          <div className="p-5 bg-white border rounded-lg shadow hover:shadow-lg hover:border-blue-500 transition">
-            <h3 className="text-lg font-semibold mb-1">🧮 Online Calculators</h3>
-            <p className="text-sm text-slate-600 mb-2">
-              Perform quick math, finance, and scientific calculations.
-            </p>
-            <Link href="/calculators" className="text-blue-600 underline text-sm">
-              Explore Calculators →
-            </Link>
-          </div>
+        <h2 className="text-2xl font-bold text-center mb-6">Featured Tools</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Feature 1 */}
+          <Link
+            href="/calculators"
+            className="block p-6 bg-white border rounded-xl shadow-sm hover:shadow-lg hover:border-blue-500 transition-all"
+          >
+            <div>
+              <h3 className="text-xl font-semibold mb-2">🧮 Online Calculators</h3>
+              <p className="text-gray-600 mb-2">
+                Perform quick math, finance, and scientific calculations.
+              </p>
+              <span className="text-blue-600 font-medium">Explore Calculators →</span>
+            </div>
+          </Link>
 
-          {/* ✅ Card 2 */}
-          <div className="p-5 bg-white border rounded-lg shadow hover:shadow-lg hover:border-blue-500 transition">
-            <h3 className="text-lg font-semibold mb-1">🔄 Unit Converters</h3>
-            <p className="text-sm text-slate-600 mb-2">
-              Convert length, mass, temperature, and more instantly.
-            </p>
-            <Link href="/converters" className="text-blue-600 underline text-sm">
-              Explore Converters →
-            </Link>
-          </div>
+          {/* Feature 2 */}
+          <Link
+            href="/converters"
+            className="block p-6 bg-white border rounded-xl shadow-sm hover:shadow-lg hover:border-blue-500 transition-all"
+          >
+            <div>
+              <h3 className="text-xl font-semibold mb-2">🔄 Unit Converters</h3>
+              <p className="text-gray-600 mb-2">
+                Convert units for length, mass, temperature, and more.
+              </p>
+              <span className="text-blue-600 font-medium">Explore Converters →</span>
+            </div>
+          </Link>
 
-          {/* ✅ Card 3 */}
-          <div className="p-5 bg-white border rounded-lg shadow hover:shadow-lg hover:border-blue-500 transition">
-            <h3 className="text-lg font-semibold mb-1">📊 Reference Tables</h3>
-            <p className="text-sm text-slate-600 mb-2">
-              Access data on materials, constants, and formulas.
-            </p>
-            <Link href="/tables" className="text-blue-600 underline text-sm">
-              View Tables →
-            </Link>
-          </div>
+          {/* Feature 3 */}
+          <Link
+            href="/tables"
+            className="block p-6 bg-white border rounded-xl shadow-sm hover:shadow-lg hover:border-blue-500 transition-all"
+          >
+            <div>
+              <h3 className="text-xl font-semibold mb-2">📊 Reference Tables</h3>
+              <p className="text-gray-600 mb-2">
+                Access data for materials, constants, and formulas.
+              </p>
+              <span className="text-blue-600 font-medium">View Tables →</span>
+            </div>
+          </Link>
 
-          {/* ✅ Card 4 */}
-          <div className="p-5 bg-white border rounded-lg shadow hover:shadow-lg hover:border-blue-500 transition">
-            <h3 className="text-lg font-semibold mb-1">⚡ Engineering Symbols</h3>
-            <p className="text-sm text-slate-600 mb-2">
-              Find electrical, mechanical, and mathematical symbols.
-            </p>
-            <Link href="/symbols" className="text-blue-600 underline text-sm">
-              Browse Symbols →
-            </Link>
-          </div>
+          {/* Feature 4 */}
+          <Link
+            href="/symbols"
+            className="block p-6 bg-white border rounded-xl shadow-sm hover:shadow-lg hover:border-blue-500 transition-all"
+          >
+            <div>
+              <h3 className="text-xl font-semibold mb-2">⚡ Engineering Symbols</h3>
+              <p className="text-gray-600 mb-2">
+                Find electrical, mechanical, and mathematical symbols.
+              </p>
+              <span className="text-blue-600 font-medium">Explore Symbols →</span>
+            </div>
+          </Link>
         </div>
       </section>
 
-      {/* ✅ External Resources Section */}
-      <section className="mt-10">
-        <h2 className="text-xl md:text-2xl font-bold mb-4 text-center">
-          Learn More from Authoritative Sources
-        </h2>
-        <ul className="list-none space-y-3 text-center">
+      {/* EXTERNAL RESOURCES */}
+      <section className="mt-12">
+        <h2 className="text-2xl font-bold mb-4 text-center">Helpful External Resources</h2>
+        <ul className="list-disc list-inside text-gray-700 space-y-2 max-w-xl mx-auto">
           <li>
             <a
               href="https://www.nist.gov/pml/weights-and-measures"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 underline text-sm md:text-base"
+              className="text-blue-600 hover:underline"
             >
-              NIST – Official Standards for Units & Conversions
+              NIST - Standards for Measurements
             </a>
           </li>
           <li>
@@ -87,19 +94,9 @@ export default function HomePage() {
               href="https://www.engineeringtoolbox.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 underline text-sm md:text-base"
+              className="text-blue-600 hover:underline"
             >
-              Engineering Toolbox – Engineering Tables and Data
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://en.wikipedia.org/wiki/List_of_mathematical_symbols"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline text-sm md:text-base"
-            >
-              Wikipedia – Mathematical Symbols
+              Engineering Toolbox - Reference Data
             </a>
           </li>
           <li>
@@ -107,77 +104,61 @@ export default function HomePage() {
               href="https://www.wolframalpha.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 underline text-sm md:text-base"
+              className="text-blue-600 hover:underline"
             >
-              Wolfram Alpha – Computational Knowledge Engine
+              Wolfram Alpha - Advanced Calculations
             </a>
           </li>
         </ul>
       </section>
 
-      {/* ✅ FAQ Section */}
-      <section className="mt-10">
-        <h2 className="text-xl md:text-2xl font-bold mb-6 text-center">
-          Frequently Asked Questions
-        </h2>
-        <div className="space-y-6">
+      {/* FAQ SECTION */}
+      <section className="mt-12">
+        <h2 className="text-2xl font-bold mb-4 text-center">Frequently Asked Questions</h2>
+        <div className="space-y-6 max-w-3xl mx-auto">
           <div>
-            <h3 className="text-base md:text-lg font-semibold">
-              What are online calculators used for?
-            </h3>
-            <p className="text-slate-600 text-sm md:text-base">
-              Online calculators help users perform quick calculations for math, finance, and science without installing software.
+            <h3 className="text-lg font-semibold">What are online calculators?</h3>
+            <p className="text-gray-600">
+              Online calculators are web tools that help you quickly perform calculations without installing software. They’re useful for math, science, and financial tasks.
             </p>
           </div>
           <div>
-            <h3 className="text-base md:text-lg font-semibold">
-              Why should I use unit converters?
-            </h3>
-            <p className="text-slate-600 text-sm md:text-base">
-              Unit converters save time and eliminate errors when converting between metric, imperial, and other measurement systems.
+            <h3 className="text-lg font-semibold">Why use unit converters?</h3>
+            <p className="text-gray-600">
+              Unit converters make it easy to switch between measurement systems like metric and imperial, saving time and reducing errors.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ✅ Call to Action */}
-      <div className="mt-10 text-center">
-        <Link
-          href="/calculators"
-          className="bg-blue-600 text-white px-5 py-3 rounded-lg text-sm md:text-base font-semibold hover:bg-blue-700 transition"
-        >
-          Start Using Our Tools →
-        </Link>
-      </div>
-
-      {/* ✅ Structured Data for FAQ */}
+      {/* JSON-LD Schema for FAQ */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
               {
-                '@type': 'Question',
-                name: 'What are online calculators used for?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Online calculators help users perform quick calculations for math, finance, and science without installing software.',
-                },
+                "@type": "Question",
+                "name": "What are online calculators?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Online calculators are web tools that help you quickly perform calculations without installing software."
+                }
               },
               {
-                '@type': 'Question',
-                name: 'Why should I use unit converters?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Unit converters save time and eliminate errors when converting between metric, imperial, and other measurement systems.',
-                },
-              },
-            ],
-          }),
+                "@type": "Question",
+                "name": "Why use unit converters?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Unit converters make it easy to switch between measurement systems like metric and imperial, saving time and reducing errors."
+                }
+              }
+            ]
+          })
         }}
       />
-    </div>
+    </main>
   );
 }
