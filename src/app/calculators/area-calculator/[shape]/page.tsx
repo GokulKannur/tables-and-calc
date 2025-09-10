@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { areaCalculatorData } from '@/lib/data/areaCalculatorData';
 import AreaCalculatorClient from '@/components/calculators/AreaCalculatorClient';
+import AreaCalculatorHubPage from '../page';
 
 export function generateStaticParams() {
   return areaCalculatorData.map((shape) => ({
@@ -13,6 +14,9 @@ export default function ShapeAreaPage({ params }: { params: { shape: string } })
   const shape = areaCalculatorData.find((s) => s.slug === params.shape);
 
   if (!shape) {
+    if (!params.shape || params.shape === 'area-calculator') {
+      return <AreaCalculatorHubPage />;
+    }
     notFound();
   }
 
