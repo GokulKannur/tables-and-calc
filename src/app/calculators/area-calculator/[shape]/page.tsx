@@ -10,12 +10,10 @@ export function generateStaticParams() {
 }
 
 export default function ShapeAreaPage({ params }: { params: { shape: string } }) {
-  // Find the shape data. The `?` prevents errors if params.shape is null.
   const shape = areaCalculatorData.find((s) => s.slug === params.shape);
 
-  // If no shape is found, display a "not found" page.
   if (!shape) {
-    notFound();
+    notFound(); // Redirects to the Next.js not-found page
   }
 
   return (
