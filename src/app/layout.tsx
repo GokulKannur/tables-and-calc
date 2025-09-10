@@ -1,4 +1,4 @@
-// ✅ layout.tsx
+// src/app/layout.tsx
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -7,7 +7,7 @@ import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const inter = Inter({ subsets: ['latin'] });
 
-// ✅ SEO Metadata (without themeColor)
+// ✅ SEO Metadata
 export const metadata: Metadata = {
   title: {
     default: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
@@ -76,7 +76,11 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="mobile-web-app-capable" content="yes" />
-
+      </head>
+      <body className={`${inter.className} flex flex-col min-h-screen bg-gray-50`}>
+        <GoogleAnalytics />
+        <ClientLayout>{children}</ClientLayout>
+        
         {/* ✅ Schema Markup */}
         <script
           type="application/ld+json"
@@ -95,10 +99,6 @@ export default function RootLayout({
             }),
           }}
         />
-      </head>
-      <body className={`${inter.className} flex flex-col min-h-screen bg-gray-50`}>
-        <GoogleAnalytics />
-        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
