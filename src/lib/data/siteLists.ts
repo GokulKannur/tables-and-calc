@@ -1,7 +1,6 @@
-// src/lib/data/siteLists.ts
 import type { CalculatorListItem, ListItem } from '../types';
 
-// --- MASTER LISTS FOR INDEX PAGES ---
+// --- MAIN CALCULATOR LIST (dynamic ones only) ---
 export const calculatorList: CalculatorListItem[] = [
   {
     slug: 'percentage-calculator',
@@ -174,6 +173,23 @@ export const calculatorList: CalculatorListItem[] = [
       formula: 'Cost($/day) = E(kWh/day) × Cost(cent/kWh) / 100',
     },
   },
+];
+
+// ✅ NEW LIST FOR STATIC HUB PAGES
+export const staticCalculatorList: CalculatorListItem[] = [
+  {
+    slug: 'area-calculator',
+    title: 'Area Calculator',
+    description: 'Calculate the area of common geometric shapes like circles, squares, and triangles.',
+    emoji: '🟥',
+    details: {
+      whatIs:
+        'An area calculator is a tool used to determine the area of various two-dimensional geometric shapes.',
+      formula:
+        'Formulas vary by shape, such as Area = side² for a square or Area = π × r² for a circle.',
+    },
+  },
+  // You can add other static hubs here, like a Volume Calculator
 ];
 
 export const tableList: ListItem[] = [
