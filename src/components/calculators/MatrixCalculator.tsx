@@ -21,11 +21,19 @@ export default function MatrixCalculator() {
   const [scalar, setScalar] = useState<number | null>(null);
   const [error, setError] = useState('');
 
-  const handleSizeChange = (newRows: number, newCols: number) => {
-    if (newRows > 10) newRows = 10;
-    if (newCols > 10) newCols = 10;
-    if (newRows < 1) newRows = 1;
-    if (newCols < 1) newCols = 1;
+  // ✨ FIX: Improved logic to handle input changes and prevent bugs
+  const handleSizeChange = (val: string, type: 'rows' | 'cols') => {
+    let num = parseInt(val);
+    if (val === '') {
+        num = 1; // Default to 1 if input is empty
+    }
+    
+    if (num > 10) num = 10;
+    if (num < 1) num = 1;
+    
+    const newRows = type === 'rows' ? num : rows;
+    const newCols = type === 'cols' ? num : cols;
+
     setRows(newRows);
     setCols(newCols);
     setMatrixA(Array(newRows).fill(0).map(() => Array(newCols).fill('0')));
@@ -72,14 +80,14 @@ export default function MatrixCalculator() {
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap gap-4 items-center p-4 bg-gray-50 rounded-lg">
-        <div><label className="mr-2 font-medium">Rows:</label><input type="number" min="1" max="10" value={rows} onChange={e => handleSizeChange(parseInt(e.target.value) || 1, cols)} className="w-20 p-2 border rounded"/></div>
-        <div><label className="mr-2 font-medium">Cols:</label><input type="number" min="1" max="10" value={cols} onChange={e => handleSizeChange(rows, parseInt(e.target.value) || 1)} className="w-20 p-2 border rounded"/></div>
+        <div><label className="mr-2 font-medium">Rows:</label><input type="number" min="1" max="10" value={rows} onChange={e => handleSizeChange(e.target.value, 'rows')} className="w-20 p-2 border rounded"/></div>
+        <div><label className="mr-2 font-medium">Cols:</label><input type="number" min="1" max="10" value={cols} onChange={e => handleSizeChange(e.target.value, 'cols')} className="w-20 p-2 border rounded"/></div>
       </div>
 
-      {/* ✨ FIX: This grid now stacks vertically on small screens */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
-        <div className="overflow-x-auto"><h3 className="text-lg font-semibold mb-2">Matrix A</h3><div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>{matrixA.map((row, r) => row.map((_, c) => <MatrixCell key={`A-${r}-${c}`} value={matrixA[r][c]} onChange={val => updateMatrix('A', r, c, val)} />))}</div></div>
-        <div className="overflow-x-auto"><h3 className="text-lg font-semibold mb-2">Matrix B</h3><div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>{matrixB.map((row, r) => row.map((_, c) => <MatrixCell key={`B-${r}-${c}`} value={matrixB[r][c]} onChange={val => updateMatrix('B', r, c, val)} />))}</div></div>
+        {/* ✨ FIX: Added a scrolling container for large matrices */}
+        <div className="overflow-x-auto p-2"><h3 className="text-lg font-semibold mb-2">Matrix A</h3><div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>{matrixA.map((row, r) => row.map((_, c) => <MatrixCell key={`A-${r}-${c}`} value={matrixA[r][c]} onChange={val => updateMatrix('A', r, c, val)} />))}</div></div>
+        <div className="overflow-x-auto p-2"><h3 className="text-lg font-semibold mb-2">Matrix B</h3><div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>{matrixB.map((row, r) => row.map((_, c) => <MatrixCell key={`B-${r}-${c}`} value={matrixB[r][c]} onChange={val => updateMatrix('B', r, c, val)} />))}</div></div>
       </div>
 
       <div className="flex flex-wrap gap-2 justify-center border-t pt-6">
