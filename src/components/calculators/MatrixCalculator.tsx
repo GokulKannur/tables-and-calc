@@ -24,11 +24,14 @@ export default function MatrixCalculator() {
   const handleSizeChange = (newRows: number, newCols: number) => {
     if (newRows > 10) newRows = 10;
     if (newCols > 10) newCols = 10;
+    if (newRows < 1) newRows = 1;
+    if (newCols < 1) newCols = 1;
     setRows(newRows);
     setCols(newCols);
     setMatrixA(Array(newRows).fill(0).map(() => Array(newCols).fill('0')));
     setMatrixB(Array(newRows).fill(0).map(() => Array(newCols).fill('0')));
     setResult(null);
+    setError('');
   };
 
   const updateMatrix = (matrix: 'A' | 'B', r: number, c: number, value: string) => {
@@ -68,17 +71,18 @@ export default function MatrixCalculator() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap gap-4 items-center">
-        <div><label className="mr-2">Rows:</label><input type="number" min="1" max="10" value={rows} onChange={e => handleSizeChange(parseInt(e.target.value) || 1, cols)} className="w-20 p-2 border rounded"/></div>
-        <div><label className="mr-2">Cols:</label><input type="number" min="1" max="10" value={cols} onChange={e => handleSizeChange(rows, parseInt(e.target.value) || 1)} className="w-20 p-2 border rounded"/></div>
+      <div className="flex flex-wrap gap-4 items-center p-4 bg-gray-50 rounded-lg">
+        <div><label className="mr-2 font-medium">Rows:</label><input type="number" min="1" max="10" value={rows} onChange={e => handleSizeChange(parseInt(e.target.value) || 1, cols)} className="w-20 p-2 border rounded"/></div>
+        <div><label className="mr-2 font-medium">Cols:</label><input type="number" min="1" max="10" value={cols} onChange={e => handleSizeChange(rows, parseInt(e.target.value) || 1)} className="w-20 p-2 border rounded"/></div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div><h3 className="text-lg font-semibold mb-2">Matrix A</h3><div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>{matrixA.map((row, r) => row.map((_, c) => <MatrixCell key={`A-${r}-${c}`} value={matrixA[r][c]} onChange={val => updateMatrix('A', r, c, val)} />))}</div></div>
-        <div><h3 className="text-lg font-semibold mb-2">Matrix B</h3><div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>{matrixB.map((row, r) => row.map((_, c) => <MatrixCell key={`B-${r}-${c}`} value={matrixB[r][c]} onChange={val => updateMatrix('B', r, c, val)} />))}</div></div>
+      {/* ✨ FIX: This grid now stacks vertically on small screens */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
+        <div className="overflow-x-auto"><h3 className="text-lg font-semibold mb-2">Matrix A</h3><div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>{matrixA.map((row, r) => row.map((_, c) => <MatrixCell key={`A-${r}-${c}`} value={matrixA[r][c]} onChange={val => updateMatrix('A', r, c, val)} />))}</div></div>
+        <div className="overflow-x-auto"><h3 className="text-lg font-semibold mb-2">Matrix B</h3><div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>{matrixB.map((row, r) => row.map((_, c) => <MatrixCell key={`B-${r}-${c}`} value={matrixB[r][c]} onChange={val => updateMatrix('B', r, c, val)} />))}</div></div>
       </div>
 
-      <div className="flex flex-wrap gap-2 justify-center">
+      <div className="flex flex-wrap gap-2 justify-center border-t pt-6">
         <button onClick={() => performOperation('add')} className="px-4 py-2 bg-blue-500 text-white rounded">A + B</button>
         <button onClick={() => performOperation('subtract')} className="px-4 py-2 bg-blue-500 text-white rounded">A - B</button>
         <button onClick={() => performOperation('multiply')} className="px-4 py-2 bg-blue-500 text-white rounded">A × B</button>
@@ -93,7 +97,6 @@ export default function MatrixCalculator() {
           <h3 className="text-lg font-semibold mb-2">Result</h3>
           <div className="inline-grid gap-1 p-2 bg-gray-100 rounded-lg overflow-x-auto" style={{ gridTemplateColumns: `repeat(${result[0].length}, minmax(0, 1fr))` }}>
             {result.map((row, r) => row.map((cell, c) => (
-              // ✨ FIX: Added overflow handling and more space to the result cells
               <div key={`R-${r}-${c}`} className="w-24 h-12 flex items-center justify-center text-center border rounded bg-white p-1 overflow-x-auto whitespace-nowrap">
                 {cell.toLocaleString(undefined, { maximumFractionDigits: 2 })}
               </div>
