@@ -13,12 +13,11 @@ export default function ShapeAreaPage({ params }: { params: { shape: string } })
   const shape = areaCalculatorData.find((s) => s.slug === params.shape);
 
   if (!shape) {
-    notFound(); // Redirects to the Next.js not-found page
+    notFound();
   }
 
   return (
     <div className="max-w-4xl mx-auto px-4 pb-12">
-      {/* Breadcrumb */}
       <nav className="text-sm text-slate-500 mb-6">
         <Link href="/" className="hover:underline">
           Home
@@ -34,10 +33,8 @@ export default function ShapeAreaPage({ params }: { params: { shape: string } })
         / <span className="font-medium text-slate-700">{shape.name}</span>
       </nav>
 
-      {/* Calculator */}
       <AreaCalculatorClient shape={shape} />
 
-      {/* Extra Info */}
       <div className="bg-white p-6 border rounded-lg shadow-sm space-y-6 mt-8">
         <div>
           <h2 className="text-2xl font-semibold mb-2">What is a {shape.name}?</h2>
