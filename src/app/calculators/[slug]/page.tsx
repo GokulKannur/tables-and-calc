@@ -12,6 +12,7 @@ import GeoGebraCalculator from '@/components/GeoGebraCalculator';
 import TrigonometryCalculator from '@/components/calculators/TrigonometryCalculator';
 import FinancialCalculators from '@/components/calculators/FinancialCalculators';
 import ElectricityCalculators from '@/components/calculators/ElectricityCalculators';
+import MatrixCalculator from '@/components/calculators/MatrixCalculator'; // ✨ 1. IMPORT
 
 // ✅ Fix: params is not a Promise
 type PageProps = {
@@ -56,6 +57,8 @@ export default function CalculatorPage({ params }: PageProps) {
     'electricity-bill-calculator': <ElectricityCalculators slug={params.slug} />,
     'energy-consumption-calculator': <ElectricityCalculators slug={params.slug} />,
     'energy-cost-calculator': <ElectricityCalculators slug={params.slug} />,
+    // ✨ 2. ADD THE NEW SLUG
+    'matrix-calculator': <MatrixCalculator />,
   };
   
   return (

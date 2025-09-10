@@ -173,6 +173,16 @@ export const calculatorList: CalculatorListItem[] = [
       formula: 'Cost($/day) = E(kWh/day) × Cost(cent/kWh) / 100',
     },
   },
+  {
+    slug: 'matrix-calculator',
+    title: 'Matrix Calculator',
+    description: 'Perform matrix operations like addition, multiplication, and finding the inverse.',
+    emoji: '🔢',
+    details: {
+      whatIs: 'A matrix calculator is a tool to perform various mathematical operations on matrices.',
+      formula: 'Supports addition, subtraction, multiplication, determinant, and inverse of matrices.',
+    },
+  },
 ];
 
 // ✅ NEW LIST FOR STATIC HUB PAGES
@@ -192,24 +202,43 @@ export const staticCalculatorList: CalculatorListItem[] = [
   // You can add other static hubs here, like a Volume Calculator
 ];
 
-export const tableList: ListItem[] = [
+// src/lib/data/siteLists.ts
+// Add 'category' to the ListItem type in src/lib/types.ts if it's not already there
+export const tableList: (ListItem & { category: string })[] = [
   {
-    slug: 'logarithm',
+    slug: 'periodic-table',
+    title: 'Periodic Table of Elements',
+    description: 'An interactive periodic table with detailed element data.',
+    emoji: '🧪',
+    category: 'Chemistry', // ✨ Assign category
+  },
+  {
+    slug: 'logarithm-table',
     title: 'Logarithm Table',
     description: 'Common (base 10) and natural (base e) logarithms.',
     emoji: '🔢',
+    category: 'Mathematics', // ✨ Assign category
   },
   {
     slug: 'awg-wire-gauge-chart',
     title: 'AWG Wire Gauge Chart',
     description: 'American Wire Gauge sizes, diameters, and more.',
     emoji: '🔌',
+    category: 'Electrical', // ✨ Assign category
   },
   {
     slug: 'resistor-color-code-calculator',
     title: 'Resistor Color Code Calculator',
     description: 'Calculate the resistance of a 4-band resistor.',
     emoji: '🎨',
+    category: 'Electrical', // ✨ Assign category
+  },
+  {
+    slug: 'exponential-table',
+    title: 'Exponential Table',
+    description: 'Reference values for the exponential function e^x.',
+    emoji: '📈',
+    category: 'Mathematics', // ✨ Assign category
   },
 ];
 
