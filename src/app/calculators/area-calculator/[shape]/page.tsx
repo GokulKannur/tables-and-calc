@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { areaCalculatorData } from '@/lib/data/areaCalculatorData';
 import AreaCalculatorClient from '@/components/calculators/AreaCalculatorClient';
-import AreaCalculatorHubPage from '../page';
 
 export function generateStaticParams() {
   return areaCalculatorData.map((shape) => ({
@@ -14,27 +13,16 @@ export default function ShapeAreaPage({ params }: { params: { shape: string } })
   const shape = areaCalculatorData.find((s) => s.slug === params.shape);
 
   if (!shape) {
-    if (!params.shape || params.shape === 'area-calculator') {
-      return <AreaCalculatorHubPage />;
-    }
-    notFound();
+    notFound(); // only 404, no hub fallback here
   }
 
   return (
     <div className="max-w-4xl mx-auto px-4 pb-12">
       <nav className="text-sm text-slate-500 mb-6">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{' '}
-        /
-        <Link href="/calculators" className="hover:underline">
-          Calculators
-        </Link>{' '}
-        /
-        <Link href="/calculators/area-calculator" className="hover:underline">
-          Area Calculator
-        </Link>{' '}
-        / <span className="font-medium text-slate-700">{shape.name}</span>
+        <Link href="/" className="hover:underline">Home</Link> /
+        <Link href="/calculators" className="hover:underline">Calculators</Link> /
+        <Link href="/calculators/area-calculator" className="hover:underline">Area Calculator</Link> /
+        <span className="font-medium text-slate-700">{shape.name}</span>
       </nav>
 
       <AreaCalculatorClient shape={shape} />
