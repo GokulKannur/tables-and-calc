@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { areaCalculatorData } from '@/lib/data/areaCalculatorData';
 import AreaCalculatorClient from '@/components/calculators/AreaCalculatorClient';
 
@@ -10,11 +10,12 @@ export function generateStaticParams() {
 }
 
 export default function ShapeAreaPage({ params }: { params: { shape: string } }) {
+  // Find the shape data. The `?` prevents errors if params.shape is null.
   const shape = areaCalculatorData.find((s) => s.slug === params.shape);
 
+  // If no shape is found, display a "not found" page.
   if (!shape) {
-    // This is the key change. If a shape is not found, redirect to the hub page.
-    redirect('/calculators/area-calculator');
+    notFound();
   }
 
   return (

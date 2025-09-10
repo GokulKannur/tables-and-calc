@@ -1,4 +1,3 @@
-// src/app/calculators/area-calculator/page.tsx
 import Link from 'next/link';
 import { areaCalculatorData } from '@/lib/data/areaCalculatorData';
 
