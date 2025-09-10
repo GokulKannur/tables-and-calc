@@ -1,8 +1,8 @@
-// src/components/Navbar.tsx
 "use client";
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Search from './Search';
 import MenuIcon from './icons/MenuIcon';
 
@@ -28,8 +28,14 @@ export default function Navbar({ onFeedbackClick }: NavbarProps) {
     <>
       <nav className="bg-white/80 backdrop-blur-sm border-b sticky top-0 z-20">
         <div className="container mx-auto flex items-center justify-between p-4">
-          <Link href="/" className="text-xl font-bold">
-            🧮 TablesAndCalc
+          <Link href="/" className="flex items-center gap-2">
+            <Image 
+              src="/logo/logo.png" 
+              alt="TablesAndCalc Logo" 
+              width={32} 
+              height={32}
+            />
+            <span className="text-xl font-bold hidden sm:inline">TablesAndCalc</span>
           </Link>
           
           <div className="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -86,7 +92,7 @@ export default function Navbar({ onFeedbackClick }: NavbarProps) {
                 {link.label}
               </Link>
             ))}
-             <button 
+              <button 
               onClick={() => {
                 onFeedbackClick();
                 setIsMenuOpen(false);
