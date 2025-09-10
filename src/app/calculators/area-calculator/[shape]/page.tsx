@@ -1,4 +1,3 @@
-// src/app/calculators/area-calculator/[shape]/page.tsx
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { areaCalculatorData } from '@/lib/data/areaCalculatorData';
@@ -11,9 +10,10 @@ export function generateStaticParams() {
 }
 
 export default function ShapeAreaPage({ params }: { params: { shape: string } }) {
-  const shape = areaCalculatorData.find((s) => s.slug === params.shape?.replace(/-+$/, ''));
+  const shape = areaCalculatorData.find((s) => s.slug === params.shape);
 
   if (!shape) {
+    // This is the key change. If a shape is not found, redirect to the hub page.
     redirect('/calculators/area-calculator');
   }
 
