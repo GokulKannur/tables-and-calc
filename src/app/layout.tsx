@@ -55,11 +55,11 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://tablesandcalc.online'),
 };
 
-// ✅ Move themeColor to viewport
+// ✅ Viewport settings
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#ffffff', // Your site color
+  themeColor: '#ffffff', // Adjust to your brand color
 };
 
 export default function RootLayout({
@@ -70,18 +70,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Canonical + Robots */}
         <link rel="canonical" href="https://tablesandcalc.online" />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="TablesAndCalc Team" />
+
+        {/* PWA / Mobile support */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
-      <body className={`${inter.className} flex flex-col min-h-screen bg-gray-50`}>
+      <body
+        className={`${inter.className} flex flex-col min-h-screen bg-gray-50`}
+      >
         <GoogleAnalytics />
         <ClientLayout>{children}</ClientLayout>
-        
-        {/* ✅ Schema Markup */}
+
+        {/* ✅ Schema Markup (WebSite with SearchAction) */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -92,8 +97,7 @@ export default function RootLayout({
               url: 'https://tablesandcalc.online',
               potentialAction: {
                 '@type': 'SearchAction',
-                target:
-                  'https://tablesandcalc.online/search?q={search_term_string}',
+                target: 'https://tablesandcalc.online/search?q={search_term_string}',
                 'query-input': 'required name=search_term_string',
               },
             }),
