@@ -13,7 +13,6 @@ interface NavbarProps {
 export default function Navbar({ onFeedbackClick }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // ✨ Changed "Notes" to "Resources"
   const navLinks = [
     { href: "/calculators", label: "Calculators" },
     { href: "/converters", label: "Converters" },
@@ -23,21 +22,24 @@ export default function Navbar({ onFeedbackClick }: NavbarProps) {
     { href: "/about", label: "About" },
   ];
 
-  // ... the rest of your Navbar component remains the same
   return (
     <>
       <nav className="bg-white/80 backdrop-blur-sm border-b sticky top-0 z-20">
         <div className="container mx-auto flex items-center justify-between p-4">
           <Link href="/" className="flex items-center gap-2">
+            {/* ✅ DOUBLE-CHECK THIS PATH */}
+            {/* If your logo is at public/logo.png, this should be src="/logo.png" */}
+            {/* If your logo is at public/images/logo.jpeg, this should be src="/images/logo.jpeg" */}
             <Image 
-              src="/logo/logo.png" 
+              src="/logo/logo.png" // This must be the exact path inside your `public` folder
               alt="TablesAndCalc Logo" 
               width={32} 
               height={32}
             />
-            <span className="text-xl font-bold hidden sm:inline">TablesAndCalc</span>
+            <span className="text-xl font-bold">TablesAndCalc</span>
           </Link>
           
+          {/* --- Desktop Navigation --- */}
           <div className="hidden md:flex items-center gap-6 text-sm font-medium">
             {navLinks.map(link => (
               <Link key={link.href} href={link.href} className="text-slate-600 hover:text-blue-600 transition-colors">
@@ -57,6 +59,7 @@ export default function Navbar({ onFeedbackClick }: NavbarProps) {
               <Search />
             </div>
             
+            {/* --- Mobile Menu Button --- */}
             <button
               onClick={() => setIsMenuOpen(true)}
               className="md:hidden p-1 text-slate-600 hover:text-blue-600"
@@ -68,6 +71,7 @@ export default function Navbar({ onFeedbackClick }: NavbarProps) {
         </div>
       </nav>
 
+      {/* --- Mobile Menu Overlay --- */}
       {isMenuOpen && (
         <div className="fixed inset-0 bg-white z-50 flex flex-col p-4 md:hidden">
           <div className="flex justify-between items-center mb-8">
@@ -92,7 +96,7 @@ export default function Navbar({ onFeedbackClick }: NavbarProps) {
                 {link.label}
               </Link>
             ))}
-              <button 
+             <button 
               onClick={() => {
                 onFeedbackClick();
                 setIsMenuOpen(false);
