@@ -1,5 +1,6 @@
 // src/app/calculators/area-calculator/[shape]/page.tsx
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { areaCalculatorData } from '@/lib/data/areaCalculatorData';
 import AreaCalculatorClient from '@/components/calculators/AreaCalculatorClient';
 
@@ -10,10 +11,10 @@ export function generateStaticParams() {
 }
 
 export default function ShapeAreaPage({ params }: { params: { shape: string } }) {
-  const shape = areaCalculatorData.find((s) => s.slug === params.shape);
+  const shape = areaCalculatorData.find((s) => s.slug === params.shape?.replace(/-+$/, ''));
 
   if (!shape) {
-    return <div>Shape not found.</div>;
+    redirect('/calculators/area-calculator');
   }
 
   return (
@@ -28,7 +29,7 @@ export default function ShapeAreaPage({ params }: { params: { shape: string } })
           Calculators
         </Link>{' '}
         /
-        <Link href="/calculators/area-calculator/area" className="hover:underline">
+        <Link href="/calculators/area-calculator" className="hover:underline">
           Area Calculator
         </Link>{' '}
         / <span className="font-medium text-slate-700">{shape.name}</span>

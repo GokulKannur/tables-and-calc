@@ -48,9 +48,18 @@ export const metadata: Metadata = {
     images: ['https://tablesandcalc.online/og-image.jpg'],
     creator: '@YourTwitterHandle',
   },
+  // ✅ Favicons (Next.js way)
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico' }, // must exist in /public
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
     apple: '/apple-touch-icon.png',
+    other: [
+      { rel: 'android-chrome', url: '/android-chrome-192x192.png', sizes: '192x192' },
+      { rel: 'android-chrome', url: '/android-chrome-512x512.png', sizes: '512x512' },
+    ],
   },
   metadataBase: new URL('https://tablesandcalc.online'),
 };
@@ -75,14 +84,19 @@ export default function RootLayout({
         <meta name="robots" content="index, follow" />
         <meta name="author" content="TablesAndCalc Team" />
 
+        {/* ✅ Extra favicon fallbacks (older browsers ignore metadata.icons) */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+
         {/* PWA / Mobile support */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
-      <body
-        className={`${inter.className} flex flex-col min-h-screen bg-gray-50`}
-      >
+      <body className={`${inter.className} flex flex-col min-h-screen bg-gray-50`}>
         <GoogleAnalytics />
         <ClientLayout>{children}</ClientLayout>
 
