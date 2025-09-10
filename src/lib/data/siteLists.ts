@@ -61,7 +61,7 @@ export const calculatorList: CalculatorListItem[] = [
             points: [
               'Enter numbers and operators using the on-screen buttons or your keyboard.',
               'Press the <strong>=</strong> button or <strong>Enter</strong> to see the result.',
-              'Use the <strong>fraction button (a/b)</strong> to easily input fractions like `3/4`.',
+              'Use the <strong>fraction button (a/b)</strong> to easily input fractions like 3/4.',
               'Your calculation history is displayed above for easy reference.',
             ],
           },
@@ -83,19 +83,6 @@ export const calculatorList: CalculatorListItem[] = [
           },
         ],
       },
-    },
-  },
-  // ✨ ADDED THE NEW AREA CALCULATOR ENTRY
-  {
-    slug: 'area-calculator',
-    title: 'Area Calculator',
-    description: 'Calculate the area of common geometric shapes like circles, squares, and triangles.',
-    emoji: '🟥',
-    details: {
-      whatIs:
-        'An area calculator is a tool used to determine the area of various two-dimensional geometric shapes.',
-      formula:
-        'Formulas vary by shape, such as Area = side² for a square or Area = π × r² for a circle.',
     },
   },
   {

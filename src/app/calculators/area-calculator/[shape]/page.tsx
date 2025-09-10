@@ -1,3 +1,5 @@
+// src/app/calculators/area-calculator/[shape]/page.tsx
+
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { areaCalculatorData } from '@/lib/data/areaCalculatorData';

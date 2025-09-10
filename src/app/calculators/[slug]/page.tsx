@@ -13,9 +13,9 @@ import TrigonometryCalculator from '@/components/calculators/TrigonometryCalcula
 import FinancialCalculators from '@/components/calculators/FinancialCalculators';
 import ElectricityCalculators from '@/components/calculators/ElectricityCalculators';
 
-// FIX: Define the props type to handle the Promise
+// ✅ Fix: params is not a Promise
 type PageProps = {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 };
 
 export async function generateStaticParams() {
@@ -25,8 +25,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const resolvedParams = await params;
-  const calc = calculatorList.find(c => c.slug === resolvedParams.slug);
+  const calc = calculatorList.find(c => c.slug === params.slug);
   if (!calc) {
     return { title: "Calculator Not Found" };
   }
@@ -36,9 +35,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function CalculatorPage({ params }: PageProps) {
-  const resolvedParams = await params;
-  const calculatorData = calculatorList.find(c => c.slug === resolvedParams.slug);
+export default function CalculatorPage({ params }: PageProps) {
+  const calculatorData = calculatorList.find(c => c.slug === params.slug);
 
   if (!calculatorData) {
     return <div>Calculator not found</div>;
@@ -51,13 +49,13 @@ export default async function CalculatorPage({ params }: PageProps) {
     'number-converter': <NumberConverter />,
     'scientific-calculator': <GeoGebraCalculator />,
     'trigonometry-calculator': <TrigonometryCalculator />,
-    'mortgage-calculator': <FinancialCalculators slug={resolvedParams.slug} />,
-    'compound-interest-calculator': <FinancialCalculators slug={resolvedParams.slug} />,
-    'simple-interest-calculator': <FinancialCalculators slug={resolvedParams.slug} />,
-    'discount-calculator': <FinancialCalculators slug={resolvedParams.slug} />,
-    'electricity-bill-calculator': <ElectricityCalculators slug={resolvedParams.slug} />,
-    'energy-consumption-calculator': <ElectricityCalculators slug={resolvedParams.slug} />,
-    'energy-cost-calculator': <ElectricityCalculators slug={resolvedParams.slug} />,
+    'mortgage-calculator': <FinancialCalculators slug={params.slug} />,
+    'compound-interest-calculator': <FinancialCalculators slug={params.slug} />,
+    'simple-interest-calculator': <FinancialCalculators slug={params.slug} />,
+    'discount-calculator': <FinancialCalculators slug={params.slug} />,
+    'electricity-bill-calculator': <ElectricityCalculators slug={params.slug} />,
+    'energy-consumption-calculator': <ElectricityCalculators slug={params.slug} />,
+    'energy-cost-calculator': <ElectricityCalculators slug={params.slug} />,
   };
   
   return (
@@ -74,7 +72,7 @@ export default async function CalculatorPage({ params }: PageProps) {
             <p className="text-slate-600 mt-2">{calculatorData.description}</p>
         </div>
         
-        {componentMap[resolvedParams.slug] || <div>Calculator not found.</div>}
+        {componentMap[params.slug] || <div>Calculator not found.</div>}
       </div>
       
       {calculatorData.details && (
