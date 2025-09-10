@@ -24,6 +24,7 @@ const SymbolCard = ({ name, description, icon }: { name: string, description: st
 );
 
 // --- Symbol Data ---
+// We now use our React components for the icons, making the data much cleaner
 const symbolSections = [
     {
         title: 'Passive Components',

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Search from './Search';
 import MenuIcon from './icons/MenuIcon';
-import SearchIcon from './icons/SearchIcon'; // Import the new search icon
+import SearchIcon from './icons/SearchIcon';
 
 interface NavbarProps {
   onFeedbackClick: () => void;
@@ -13,7 +13,7 @@ interface NavbarProps {
 
 export default function Navbar({ onFeedbackClick }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false); // State for the search overlay
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const navLinks = [
     { href: "/calculators", label: "Calculators" },
@@ -83,7 +83,41 @@ export default function Navbar({ onFeedbackClick }: NavbarProps) {
       {/* --- Mobile Menu Overlay --- */}
       {isMenuOpen && (
         <div className="fixed inset-0 bg-white z-50 flex flex-col p-4 md:hidden">
-          {/* ... existing mobile menu code ... */}
+          <div className="flex justify-between items-center mb-8">
+            <span className="text-xl font-bold">Menu</span>
+            <button 
+              onClick={() => setIsMenuOpen(false)} 
+              className="text-3xl font-light text-slate-600 hover:text-blue-600"
+              aria-label="Close menu"
+            >
+              &times;
+            </button>
+          </div>
+          
+          <div className="flex flex-col gap-6 text-lg">
+            {navLinks.map(link => (
+              <Link 
+                key={link.href} 
+                href={link.href} 
+                className="text-slate-700 hover:text-blue-600"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+             <button 
+              onClick={() => {
+                onFeedbackClick();
+                setIsMenuOpen(false);
+              }} 
+              className="text-left text-slate-700 hover:text-blue-600"
+            >
+              Feedback
+            </button>
+          </div>
+          <div className="mt-8 sm:hidden">
+              <Search />
+            </div>
         </div>
       )}
 

@@ -22,7 +22,7 @@ export const InductorIcon = () => (
 
 // --- Semiconductors ---
 export const DiodeIcon = () => (
-    <svg {...iconProps}><path d="M10 20 L40 20 L60 10 L60 30 L40 20 M60 10 L90 10 M60 30 L90 30" strokeLinejoin="round" /></svg>
+    <svg {...iconProps}><path d="M25 20 h20 l20 -10 v20 l-20 -10 M65 10 v20" strokeLinejoin="round" /><path d="M15 20 h10 m40 0 h10" /></svg>
 );
 export const NpnBjtIcon = () => (
   <svg {...iconProps} viewBox="0 0 100 50"><circle cx="50" cy="25" r="15" /><path d="M50 10 V 17 M30 25 H 42 M50 25 l18 -10 l0 20 M64 17 l8 -3" /></svg>
@@ -39,7 +39,7 @@ export const OrGateIcon = () => (
   <svg {...iconProps}><path d="M20 10 q 20 10 0 20 M20,10 c 15 0, 25 5, 30 10 c -5 5 -15 10 -30 10" /><path d="M10 15 h10 m-10 10 h10 m30 -15 h10" /></svg>
 );
 export const NotGateIcon = () => (
-  <svg {...iconProps}><path d="M20 20 h20 l15 -10 v20 l-15 -10" /><circle cx="58" cy="20" r="2.5" fill="currentColor" /><path d="M10 20 h10 m50.5 0 h10" /></svg>
+    <svg {...iconProps}><path d="M20 20 h20 l15 -10 v20 l-15 -10" /><circle cx="58" cy="20" r="2.5" fill="none" /><path d="M10 20 h10 m50.5 0 h10" /></svg>
 );
 
 // --- Switches ---
