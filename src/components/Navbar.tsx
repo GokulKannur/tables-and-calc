@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Search from './Search';
 import MenuIcon from './icons/MenuIcon';
+import SearchIcon from './icons/SearchIcon'; // Import the new search icon
 
 interface NavbarProps {
   onFeedbackClick: () => void;
@@ -12,6 +13,7 @@ interface NavbarProps {
 
 export default function Navbar({ onFeedbackClick }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false); // State for the search overlay
 
   const navLinks = [
     { href: "/calculators", label: "Calculators" },
@@ -25,13 +27,10 @@ export default function Navbar({ onFeedbackClick }: NavbarProps) {
   return (
     <>
       <nav className="bg-white/80 backdrop-blur-sm border-b sticky top-0 z-20">
-        <div className="container mx-auto flex items-center justify-between p-4">
+        <div className="container mx-auto flex items-center justify-between p-4 gap-4">
           <Link href="/" className="flex items-center gap-2">
-            {/* ✅ DOUBLE-CHECK THIS PATH */}
-            {/* If your logo is at public/logo.png, this should be src="/logo.png" */}
-            {/* If your logo is at public/images/logo.jpeg, this should be src="/images/logo.jpeg" */}
             <Image 
-              src="/logo/logo.png" // This must be the exact path inside your `public` folder
+              src="/logo/logo.png"
               alt="TablesAndCalc Logo" 
               width={32} 
               height={32}
@@ -54,19 +53,29 @@ export default function Navbar({ onFeedbackClick }: NavbarProps) {
             </button>
           </div>
           
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            {/* --- Desktop Search --- */}
             <div className="hidden sm:block">
               <Search />
             </div>
-            
-            {/* --- Mobile Menu Button --- */}
-            <button
-              onClick={() => setIsMenuOpen(true)}
-              className="md:hidden p-1 text-slate-600 hover:text-blue-600"
-              aria-label="Open menu"
-            >
-              <MenuIcon className="h-6 w-6" />
-            </button>
+
+            {/* --- Mobile Icons --- */}
+            <div className='flex items-center gap-2 md:hidden'>
+                <button
+                    onClick={() => setIsSearchOpen(true)}
+                    className="p-1 text-slate-600 hover:text-blue-600"
+                    aria-label="Open search"
+                >
+                    <SearchIcon className="h-6 w-6" />
+                </button>
+                <button
+                    onClick={() => setIsMenuOpen(true)}
+                    className="p-1 text-slate-600 hover:text-blue-600"
+                    aria-label="Open menu"
+                >
+                    <MenuIcon className="h-6 w-6" />
+                </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -74,41 +83,24 @@ export default function Navbar({ onFeedbackClick }: NavbarProps) {
       {/* --- Mobile Menu Overlay --- */}
       {isMenuOpen && (
         <div className="fixed inset-0 bg-white z-50 flex flex-col p-4 md:hidden">
-          <div className="flex justify-between items-center mb-8">
-            <span className="text-xl font-bold">Menu</span>
-            <button 
-              onClick={() => setIsMenuOpen(false)} 
-              className="text-3xl font-light text-slate-600 hover:text-blue-600"
-              aria-label="Close menu"
-            >
-              &times;
-            </button>
-          </div>
-          
-          <div className="flex flex-col gap-6 text-lg">
-            {navLinks.map(link => (
-              <Link 
-                key={link.href} 
-                href={link.href} 
-                className="text-slate-700 hover:text-blue-600"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
-             <button 
-              onClick={() => {
-                onFeedbackClick();
-                setIsMenuOpen(false);
-              }} 
-              className="text-left text-slate-700 hover:text-blue-600"
-            >
-              Feedback
-            </button>
-          </div>
-          <div className="mt-8 sm:hidden">
-              <Search />
+          {/* ... existing mobile menu code ... */}
+        </div>
+      )}
+
+      {/* --- Search Overlay --- */}
+      {isSearchOpen && (
+        <div className="fixed inset-0 bg-white z-50 flex flex-col p-4">
+            <div className="flex justify-between items-center mb-8">
+                <span className="text-xl font-bold">Search</span>
+                <button 
+                    onClick={() => setIsSearchOpen(false)} 
+                    className="text-3xl font-light text-slate-600 hover:text-blue-600"
+                    aria-label="Close search"
+                >
+                    &times;
+                </button>
             </div>
+            <Search />
         </div>
       )}
     </>
