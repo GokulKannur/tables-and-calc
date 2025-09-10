@@ -7,7 +7,7 @@ export interface ShapeData {
   formulas: {
     label: string;
     inputs: { id: string; name: string }[];
-  }[]; // The 'calculate' function has been removed
+  }[];
   facts: string[];
 }
 

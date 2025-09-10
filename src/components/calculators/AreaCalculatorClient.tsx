@@ -3,42 +3,20 @@
 import { useState, useMemo, useEffect } from 'react';
 import type { ShapeData } from '@/lib/data/areaCalculatorData';
 
-// All calculation logic now lives safely inside the client component
 const calculationFormulas: { [key: string]: ((inputs: number[]) => number)[] } = {
-  circle: [
-    ([r]) => Math.PI * r * r,
-  ],
-  triangle: [
-    ([b, h]) => 0.5 * b * h,
-    ([a, b, c]) => {
-      const s = (a + b + c) / 2;
-      return Math.sqrt(s * (s - a) * (s - b) * (s - c));
-    },
-  ],
-  square: [
-    ([a]) => a * a,
-  ],
-  rectangle: [
-    ([w, l]) => w * l,
-  ],
-  polygon: [
-    ([n, s]) => (n * s * s) / (4 * Math.tan(Math.PI / n)),
-  ],
-  trapezoid: [
-    ([a, b, h]) => 0.5 * (a + b) * h,
-  ],
-  parallelogram: [
-    ([b, h]) => b * h,
-  ],
-  rhombus: [
-    ([d1, d2]) => 0.5 * d1 * d2,
-  ],
+  circle: [ ([r]) => Math.PI * r * r ],
+  triangle: [ ([b, h]) => 0.5 * b * h, ([a, b, c]) => { const s = (a + b + c) / 2; return Math.sqrt(s * (s - a) * (s - b) * (s - c)); }, ],
+  square: [ ([a]) => a * a ],
+  rectangle: [ ([w, l]) => w * l ],
+  polygon: [ ([n, s]) => (n * s * s) / (4 * Math.tan(Math.PI / n)) ],
+  trapezoid: [ ([a, b, h]) => 0.5 * (a + b) * h ],
+  parallelogram: [ ([b, h]) => b * h ],
+  rhombus: [ ([d1, d2]) => 0.5 * d1 * d2 ],
 };
 
 export default function AreaCalculatorClient({ shape }: { shape: ShapeData }) {
     const [activeFormulaIndex, setActiveFormulaIndex] = useState(0);
     const activeFormula = useMemo(() => shape.formulas[activeFormulaIndex], [shape, activeFormulaIndex]);
-
     const [inputs, setInputs] = useState<number[]>([]);
     const [area, setArea] = useState<number | null>(null);
     
