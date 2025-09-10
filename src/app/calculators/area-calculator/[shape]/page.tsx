@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { areaCalculatorData } from '@/lib/data/areaCalculatorData';
 import AreaCalculatorClient from '@/components/calculators/AreaCalculatorClient';
+import AreaCalculatorHubPage from '../page'; // Import the hub page component
 
 export function generateStaticParams() {
   return areaCalculatorData.map((shape) => ({
@@ -10,14 +11,23 @@ export function generateStaticParams() {
 }
 
 export default function ShapeAreaPage({ params }: { params: { shape: string } }) {
+  // Find the shape data. The `?` prevents errors if params.shape is null.
   const shape = areaCalculatorData.find((s) => s.slug === params.shape);
 
+  // If no shape is found, render the hub page instead of a 404.
   if (!shape) {
+    // Check if the slug is empty or "area-calculator"
+    if (!params.shape || params.shape === 'area-calculator') {
+      return <AreaCalculatorHubPage />;
+    }
+    // For all other invalid slugs, still show a not-found page.
     notFound();
   }
 
+  // If a valid shape is found, render the specific calculator page.
   return (
     <div className="max-w-4xl mx-auto px-4 pb-12">
+      {/* Breadcrumb */}
       <nav className="text-sm text-slate-500 mb-6">
         <Link href="/" className="hover:underline">
           Home
@@ -33,8 +43,10 @@ export default function ShapeAreaPage({ params }: { params: { shape: string } })
         / <span className="font-medium text-slate-700">{shape.name}</span>
       </nav>
 
+      {/* Calculator */}
       <AreaCalculatorClient shape={shape} />
 
+      {/* Extra Info */}
       <div className="bg-white p-6 border rounded-lg shadow-sm space-y-6 mt-8">
         <div>
           <h2 className="text-2xl font-semibold mb-2">What is a {shape.name}?</h2>
