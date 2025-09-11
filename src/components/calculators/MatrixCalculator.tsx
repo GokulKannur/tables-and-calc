@@ -21,11 +21,9 @@ export default function MatrixCalculator() {
   const [scalar, setScalar] = useState<number | null>(null);
   const [error, setError] = useState('');
 
-  // ✨ FIX: Improved logic to handle input changes and prevent bugs
   const handleSizeChange = (val: string, type: 'rows' | 'cols') => {
     let num = parseInt(val);
     if (val === '') {
-        // This handles the backspace case. We can let the state be empty temporarily.
         if (type === 'rows') setRows(NaN);
         if (type === 'cols') setCols(NaN);
         return;
@@ -89,8 +87,18 @@ export default function MatrixCalculator() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
         {/* ✨ FIX: Added a scrolling container for large matrices */}
-        <div className="overflow-x-auto p-2"><h3 className="text-lg font-semibold mb-2">Matrix A</h3><div className="inline-grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>{matrixA.map((row, r) => row.map((_, c) => <MatrixCell key={`A-${r}-${c}`} value={matrixA[r][c]} onChange={val => updateMatrix('A', r, c, val)} />))}</div></div>
-        <div className="overflow-x-auto p-2"><h3 className="text-lg font-semibold mb-2">Matrix B</h3><div className="inline-grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>{matrixB.map((row, r) => row.map((_, c) => <MatrixCell key={`B-${r}-${c}`} value={matrixB[r][c]} onChange={val => updateMatrix('B', r, c, val)} />))}</div></div>
+        <div className="overflow-x-auto p-2">
+            <h3 className="text-lg font-semibold mb-2">Matrix A</h3>
+            <div className="inline-grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
+                {matrixA.map((row, r) => row.map((_, c) => <MatrixCell key={`A-${r}-${c}`} value={matrixA[r][c]} onChange={val => updateMatrix('A', r, c, val)} />))}
+            </div>
+        </div>
+        <div className="overflow-x-auto p-2">
+            <h3 className="text-lg font-semibold mb-2">Matrix B</h3>
+            <div className="inline-grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
+                {matrixB.map((row, r) => row.map((_, c) => <MatrixCell key={`B-${r}-${c}`} value={matrixB[r][c]} onChange={val => updateMatrix('B', r, c, val)} />))}
+            </div>
+        </div>
       </div>
 
       <div className="flex flex-wrap gap-2 justify-center border-t pt-6">
