@@ -9,6 +9,9 @@ const inter = Inter({ subsets: ['latin'] });
 
 // ✅ SEO Metadata
 export const metadata: Metadata = {
+  // Sets the base URL for resolving relative paths
+  metadataBase: new URL('https://tablesandcalc.online'),
+
   title: {
     default: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
     template: '%s | TablesAndCalc',
@@ -23,6 +26,12 @@ export const metadata: Metadata = {
     'scientific calculators',
     'math converters',
   ],
+
+  // ✨ FIX: Adds canonical link generation for all pages (Next.js way)
+  alternates: {
+    canonical: '/',
+  },
+
   openGraph: {
     title: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
     description:
@@ -48,10 +57,10 @@ export const metadata: Metadata = {
     images: ['https://tablesandcalc.online/og-image.jpg'],
     creator: '@YourTwitterHandle',
   },
-  // ✅ Favicons (Next.js way)
+  // ✅ Favicons (handled by Next.js)
   icons: {
     icon: [
-      { url: '/favicon.ico' }, // must exist in /public
+      { url: '/favicon.ico' },
       { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
       { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
     ],
@@ -61,14 +70,13 @@ export const metadata: Metadata = {
       { rel: 'android-chrome', url: '/android-chrome-512x512.png', sizes: '512x512' },
     ],
   },
-  metadataBase: new URL('https://tablesandcalc.online'),
 };
 
 // ✅ Viewport settings
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#ffffff', // Adjust to your brand color
+  themeColor: '#ffffff',
 };
 
 export default function RootLayout({
@@ -79,12 +87,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Canonical + Robots */}
-        <link rel="canonical" href="https://tablesandcalc.online" />
+        {/*
+          The <link rel="canonical"> is now handled by the `alternates` property in the metadata object above.
+          Other tags are kept for full compatibility and specific purposes.
+        */}
         <meta name="robots" content="index, follow" />
         <meta name="author" content="TablesAndCalc Team" />
 
-        {/* ✅ Extra favicon fallbacks (older browsers ignore metadata.icons) */}
+        {/* ✅ Extra favicon fallbacks for older browsers */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
