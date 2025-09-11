@@ -25,7 +25,10 @@ export default function MatrixCalculator() {
   const handleSizeChange = (val: string, type: 'rows' | 'cols') => {
     let num = parseInt(val);
     if (val === '') {
-        num = 1; // Default to 1 if input is empty
+        // This handles the backspace case. We can let the state be empty temporarily.
+        if (type === 'rows') setRows(NaN);
+        if (type === 'cols') setCols(NaN);
+        return;
     }
     
     if (num > 10) num = 10;
@@ -80,14 +83,14 @@ export default function MatrixCalculator() {
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap gap-4 items-center p-4 bg-gray-50 rounded-lg">
-        <div><label className="mr-2 font-medium">Rows:</label><input type="number" min="1" max="10" value={rows} onChange={e => handleSizeChange(e.target.value, 'rows')} className="w-20 p-2 border rounded"/></div>
-        <div><label className="mr-2 font-medium">Cols:</label><input type="number" min="1" max="10" value={cols} onChange={e => handleSizeChange(e.target.value, 'cols')} className="w-20 p-2 border rounded"/></div>
+        <div><label className="mr-2 font-medium">Rows:</label><input type="number" min="1" max="10" value={isNaN(rows) ? '' : rows} onChange={e => handleSizeChange(e.target.value, 'rows')} className="w-20 p-2 border rounded"/></div>
+        <div><label className="mr-2 font-medium">Cols:</label><input type="number" min="1" max="10" value={isNaN(cols) ? '' : cols} onChange={e => handleSizeChange(e.target.value, 'cols')} className="w-20 p-2 border rounded"/></div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
         {/* ✨ FIX: Added a scrolling container for large matrices */}
-        <div className="overflow-x-auto p-2"><h3 className="text-lg font-semibold mb-2">Matrix A</h3><div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>{matrixA.map((row, r) => row.map((_, c) => <MatrixCell key={`A-${r}-${c}`} value={matrixA[r][c]} onChange={val => updateMatrix('A', r, c, val)} />))}</div></div>
-        <div className="overflow-x-auto p-2"><h3 className="text-lg font-semibold mb-2">Matrix B</h3><div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>{matrixB.map((row, r) => row.map((_, c) => <MatrixCell key={`B-${r}-${c}`} value={matrixB[r][c]} onChange={val => updateMatrix('B', r, c, val)} />))}</div></div>
+        <div className="overflow-x-auto p-2"><h3 className="text-lg font-semibold mb-2">Matrix A</h3><div className="inline-grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>{matrixA.map((row, r) => row.map((_, c) => <MatrixCell key={`A-${r}-${c}`} value={matrixA[r][c]} onChange={val => updateMatrix('A', r, c, val)} />))}</div></div>
+        <div className="overflow-x-auto p-2"><h3 className="text-lg font-semibold mb-2">Matrix B</h3><div className="inline-grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>{matrixB.map((row, r) => row.map((_, c) => <MatrixCell key={`B-${r}-${c}`} value={matrixB[r][c]} onChange={val => updateMatrix('B', r, c, val)} />))}</div></div>
       </div>
 
       <div className="flex flex-wrap gap-2 justify-center border-t pt-6">
@@ -103,12 +106,14 @@ export default function MatrixCalculator() {
       {result && (
         <div className="text-center">
           <h3 className="text-lg font-semibold mb-2">Result</h3>
-          <div className="inline-grid gap-1 p-2 bg-gray-100 rounded-lg overflow-x-auto" style={{ gridTemplateColumns: `repeat(${result[0].length}, minmax(0, 1fr))` }}>
-            {result.map((row, r) => row.map((cell, c) => (
-              <div key={`R-${r}-${c}`} className="w-24 h-12 flex items-center justify-center text-center border rounded bg-white p-1 overflow-x-auto whitespace-nowrap">
-                {cell.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-              </div>
-            )))}
+          <div className="overflow-x-auto inline-block">
+            <div className="inline-grid gap-1 p-2 bg-gray-100 rounded-lg" style={{ gridTemplateColumns: `repeat(${result[0].length}, minmax(0, 1fr))` }}>
+                {result.map((row, r) => row.map((cell, c) => (
+                <div key={`R-${r}-${c}`} className="w-24 h-12 flex items-center justify-center text-center border rounded bg-white p-1 overflow-x-auto whitespace-nowrap">
+                    {cell.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                </div>
+                )))}
+            </div>
           </div>
         </div>
       )}
