@@ -1,5 +1,17 @@
-import Link from 'next/link';
-import { areaCalculatorData } from '@/lib/data/areaCalculatorData';
+// src/app/calculators/area-calculator/page.tsx
+import Link from "next/link";
+import { areaCalculatorData } from "@/lib/data/areaCalculatorData";
+import { generatePageMetadata } from "@/lib/metadata";
+import type { Metadata } from "next";
+
+// ✅ SEO Metadata
+export const metadata: Metadata = generatePageMetadata({
+  title: "Area Calculators | TablesAndCalc",
+  description:
+    "Free online area calculators for shapes including circle, triangle, square, rectangle, polygon, trapezoid, and more. Step-by-step formulas included.",
+  url: "https://tablesandcalc.online/calculators/area-calculator",
+  image: "https://tablesandcalc.online/og-area-calculator.jpg",
+});
 
 export default function AreaCalculatorHubPage() {
   return (
@@ -18,10 +30,30 @@ export default function AreaCalculatorHubPage() {
             key={shape.slug}
             className="block p-6 bg-white border rounded-lg text-center shadow-sm hover:shadow-md hover:border-blue-500 transition-all"
           >
-            <h2 className="text-xl font-semibold text-blue-600">{shape.name}</h2>
+            <h2 className="text-xl font-semibold text-blue-600">
+              {shape.name}
+            </h2>
           </Link>
         ))}
       </div>
+
+      {/* ✅ JSON-LD schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Area Calculators",
+            itemListElement: areaCalculatorData.map((shape, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              url: `https://tablesandcalc.online/calculators/area-calculator/${shape.slug}`,
+              name: `${shape.name} Area Calculator`,
+            })),
+          }),
+        }}
+      />
     </div>
   );
 }
