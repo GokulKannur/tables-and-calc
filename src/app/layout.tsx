@@ -7,12 +7,10 @@ import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const inter = Inter({ subsets: ['latin'] });
 
-// ✅ The most robust and modern metadata configuration
+// ✅ Metadata configuration
 export const metadata: Metadata = {
-  // Sets the base URL for resolving relative paths (like for Open Graph images)
   metadataBase: new URL('https://tablesandcalc.online'),
 
-  // Title will be dynamically generated for sub-pages
   title: {
     default: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
     template: '%s | TablesAndCalc',
@@ -29,18 +27,16 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'TablesAndCalc Team' }],
 
-  // Generates the canonical link tag for all pages
   alternates: {
     canonical: '/',
   },
 
-  // Search engine crawler instructions
   robots: {
     index: true,
     follow: true,
   },
 
-  // All favicons and app icons are handled here
+  // ✅ Make sure these icons exist in /public
   icons: {
     icon: [
       { url: '/favicon.ico' },
@@ -54,10 +50,8 @@ export const metadata: Metadata = {
     ],
   },
   
-  // Handles the manifest file for PWA features
   manifest: '/site.webmanifest',
 
-  // Open Graph (for Facebook, LinkedIn, etc.)
   openGraph: {
     title: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
     description: 'Explore free calculators, unit converters, and science tools for students and professionals.',
@@ -65,7 +59,7 @@ export const metadata: Metadata = {
     siteName: 'TablesAndCalc',
     images: [
       {
-        url: 'https://tablesandcalc.online/og-image.jpg', // Using absolute URL is best practice
+        url: 'https://tablesandcalc.online/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'TablesAndCalc - Free Online Calculators & Converters',
@@ -75,44 +69,36 @@ export const metadata: Metadata = {
     type: 'website',
   },
   
-  // Twitter Card
   twitter: {
     card: 'summary_large_image',
     title: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
     description: 'Free calculators, converters, and reference tools for students and professionals.',
-    images: ['https://tablesandcalc.online/og-image.jpg'], // Using absolute URL is best practice
+    images: ['https://tablesandcalc.online/og-image.jpg'],
     creator: '@YourTwitterHandle',
   },
 };
 
-// ✅ Viewport configuration including PWA settings
+// ✅ Viewport config (no appleWebApp here)
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   themeColor: '#ffffff',
-  // PWA mobile settings
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
-        {/*
-          Next.js automatically handles all meta tags defined in the `metadata` and `viewport` objects above.
-          The <head> can be kept clean. A few specific meta tags like the one below can be added for 
-          maximum compatibility with older systems if needed.
-        */}
+        {/* ✅ Mobile/PWA meta tags */}
         <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
       <body className={`${inter.className} flex flex-col min-h-screen bg-gray-50`}>
         <GoogleAnalytics />
         <ClientLayout>{children}</ClientLayout>
 
-        {/* ✅ Schema Markup for rich search results (Sitelinks Search Box) */}
+        {/* ✅ Schema Markup for search box */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -126,6 +112,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 target: 'https://tablesandcalc.online/search?q={search_term_string}',
                 'query-input': 'required name=search_term_string',
               },
+            }),
+          }}
+        />
+
+        {/* ✅ Schema Markup for Organization + Logo */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'TablesAndCalc',
+              url: 'https://tablesandcalc.online',
+              logo: 'https://tablesandcalc.online/favicon.png'
             }),
           }}
         />
