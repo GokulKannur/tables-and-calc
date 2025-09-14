@@ -6,75 +6,7 @@ import ClientLayout from '@/components/ClientLayout';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const inter = Inter({ subsets: ['latin'] });
-
 const siteUrl = 'https://tablesandcalc.online';
-
-// ✅ Base metadata (shared by all pages)
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-
-  title: {
-    default: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
-    template: '%s | TablesAndCalc',
-  },
-  description:
-    'Free online calculators, unit converters, reference tables, and symbols. Simple, modern tools for students and professionals.',
-  keywords: [
-    'online calculators',
-    'unit converters',
-    'reference tables',
-    'engineering tools',
-    'scientific calculators',
-    'math converters',
-  ],
-  authors: [{ name: 'TablesAndCalc Team' }],
-
-  // 🚨 Removed the hardcoded "/" canonical
-  robots: {
-    index: true,
-    follow: true,
-  },
-
-  icons: {
-    icon: [
-      { url: '/favicon.ico' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-    ],
-    apple: '/apple-touch-icon.png',
-    other: [
-      { rel: 'android-chrome', url: '/android-chrome-192x192.png', sizes: '192x192' },
-      { rel: 'android-chrome', url: '/android-chrome-512x512.png', sizes: '512x512' },
-    ],
-  },
-  
-  manifest: '/site.webmanifest',
-
-  openGraph: {
-    title: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
-    description: 'Explore free calculators, unit converters, and science tools for students and professionals.',
-    url: siteUrl,
-    siteName: 'TablesAndCalc',
-    images: [
-      {
-        url: `${siteUrl}/og-image.jpg`,
-        width: 1200,
-        height: 630,
-        alt: 'TablesAndCalc - Free Online Calculators & Converters',
-      },
-    ],
-    locale: 'en_US',
-    type: 'website',
-  },
-  
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
-    description: 'Free calculators, converters, and reference tools for students and professionals.',
-    images: [`${siteUrl}/og-image.jpg`],
-    creator: '@YourTwitterHandle',
-  },
-};
 
 // ✅ Viewport config
 export const viewport: Viewport = {
@@ -83,14 +15,76 @@ export const viewport: Viewport = {
   themeColor: '#ffffff',
 };
 
-// ✅ Dynamic metadata per route (including canonical)
+// ✅ Dynamic metadata per route (all SEO + canonical)
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata> {
   const path = Array.isArray(params?.slug) ? params.slug.join('/') : '';
   const url = path ? `${siteUrl}/${path}` : siteUrl;
 
   return {
+    metadataBase: new URL(siteUrl),
+    title: {
+      default: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
+      template: '%s | TablesAndCalc',
+    },
+    description:
+      'Free online calculators, unit converters, reference tables, and symbols. Simple, modern tools for students and professionals.',
+    keywords: [
+      'online calculators',
+      'unit converters',
+      'reference tables',
+      'engineering tools',
+      'scientific calculators',
+      'math converters',
+    ],
+    authors: [{ name: 'TablesAndCalc Team' }],
+
     alternates: {
       canonical: url,
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+    },
+
+    icons: {
+      icon: [
+        { url: '/favicon.ico' },
+        { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+        { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      ],
+      apple: '/apple-touch-icon.png',
+      other: [
+        { rel: 'android-chrome', url: '/android-chrome-192x192.png', sizes: '192x192' },
+        { rel: 'android-chrome', url: '/android-chrome-512x512.png', sizes: '512x512' },
+      ],
+    },
+
+    manifest: '/site.webmanifest',
+
+    openGraph: {
+      title: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
+      description: 'Explore free calculators, unit converters, and science tools for students and professionals.',
+      url: url,
+      siteName: 'TablesAndCalc',
+      images: [
+        {
+          url: `${siteUrl}/og-image.jpg`,
+          width: 1200,
+          height: 630,
+          alt: 'TablesAndCalc - Free Online Calculators & Converters',
+        },
+      ],
+      locale: 'en_US',
+      type: 'website',
+    },
+
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
+      description: 'Free calculators, converters, and reference tools for students and professionals.',
+      images: [`${siteUrl}/og-image.jpg`],
+      creator: '@YourTwitterHandle',
     },
   };
 }
