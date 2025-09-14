@@ -7,9 +7,11 @@ import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const inter = Inter({ subsets: ['latin'] });
 
-// ✅ Metadata configuration
+const siteUrl = 'https://tablesandcalc.online';
+
+// ✅ Base metadata (shared by all pages)
 export const metadata: Metadata = {
-  metadataBase: new URL('https://tablesandcalc.online'),
+  metadataBase: new URL(siteUrl),
 
   title: {
     default: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
@@ -27,16 +29,12 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'TablesAndCalc Team' }],
 
-  alternates: {
-    canonical: '/',
-  },
-
+  // 🚨 Removed the hardcoded "/" canonical
   robots: {
     index: true,
     follow: true,
   },
 
-  // ✅ Make sure these icons exist in /public
   icons: {
     icon: [
       { url: '/favicon.ico' },
@@ -55,11 +53,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
     description: 'Explore free calculators, unit converters, and science tools for students and professionals.',
-    url: 'https://tablesandcalc.online',
+    url: siteUrl,
     siteName: 'TablesAndCalc',
     images: [
       {
-        url: 'https://tablesandcalc.online/og-image.jpg',
+        url: `${siteUrl}/og-image.jpg`,
         width: 1200,
         height: 630,
         alt: 'TablesAndCalc - Free Online Calculators & Converters',
@@ -73,17 +71,29 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
     description: 'Free calculators, converters, and reference tools for students and professionals.',
-    images: ['https://tablesandcalc.online/og-image.jpg'],
+    images: [`${siteUrl}/og-image.jpg`],
     creator: '@YourTwitterHandle',
   },
 };
 
-// ✅ Viewport config (no appleWebApp here)
+// ✅ Viewport config
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   themeColor: '#ffffff',
 };
+
+// ✅ Dynamic metadata per route (including canonical)
+export async function generateMetadata({ params }: { params: any }): Promise<Metadata> {
+  const path = Array.isArray(params?.slug) ? params.slug.join('/') : '';
+  const url = path ? `${siteUrl}/${path}` : siteUrl;
+
+  return {
+    alternates: {
+      canonical: url,
+    },
+  };
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -106,10 +116,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@context': 'https://schema.org',
               '@type': 'WebSite',
               name: 'TablesAndCalc',
-              url: 'https://tablesandcalc.online',
+              url: siteUrl,
               potentialAction: {
                 '@type': 'SearchAction',
-                target: 'https://tablesandcalc.online/search?q={search_term_string}',
+                target: `${siteUrl}/search?q={search_term_string}`,
                 'query-input': 'required name=search_term_string',
               },
             }),
@@ -124,8 +134,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@context': 'https://schema.org',
               '@type': 'Organization',
               name: 'TablesAndCalc',
-              url: 'https://tablesandcalc.online',
-              logo: 'https://tablesandcalc.online/favicon.png'
+              url: siteUrl,
+              logo: `${siteUrl}/favicon.png`,
             }),
           }}
         />
