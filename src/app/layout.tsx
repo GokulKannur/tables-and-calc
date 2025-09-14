@@ -15,7 +15,7 @@ export const viewport: Viewport = {
   themeColor: '#ffffff',
 };
 
-// ✅ Dynamic metadata per route (all SEO + canonical)
+// ✅ Dynamic metadata per route (SEO + canonical)
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata> {
   const path = Array.isArray(params?.slug) ? params.slug.join('/') : '';
   const url = path ? `${siteUrl}/${path}` : siteUrl;
@@ -47,11 +47,14 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
       follow: true,
     },
 
+    // ✅ Icons (from RealFaviconGenerator package)
     icons: {
       icon: [
         { url: '/favicon.ico' },
         { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
         { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+        { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+        { url: '/favicon.svg', type: 'image/svg+xml' },
       ],
       apple: '/apple-touch-icon.png',
       other: [
@@ -69,7 +72,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
       siteName: 'TablesAndCalc',
       images: [
         {
-          url: `${siteUrl}/og-image.jpg`,
+          url: `${siteUrl}/og-image.png`, // ✅ updated to .png to match generated OG image
           width: 1200,
           height: 630,
           alt: 'TablesAndCalc - Free Online Calculators & Converters',
@@ -83,7 +86,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
       card: 'summary_large_image',
       title: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
       description: 'Free calculators, converters, and reference tools for students and professionals.',
-      images: [`${siteUrl}/og-image.jpg`],
+      images: [`${siteUrl}/og-image.png`],
       creator: '@YourTwitterHandle',
     },
   };
@@ -129,7 +132,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@type': 'Organization',
               name: 'TablesAndCalc',
               url: siteUrl,
-              logo: `${siteUrl}/favicon.png`,
+              logo: `${siteUrl}/favicon-96x96.png`, // ✅ point to real favicon file
             }),
           }}
         />
