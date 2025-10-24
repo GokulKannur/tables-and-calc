@@ -1,5 +1,5 @@
-// src/app/embed/[calculator]/page.tsx
 import { notFound } from 'next/navigation';
+import React from 'react';
 
 // Import necessary calculator components
 import { calculatorList, staticCalculatorList } from '@/lib/data/siteLists';
@@ -7,7 +7,6 @@ import PercentageCalculator from '@/components/calculators/PercentageCalculator'
 import BmiCalculator from '@/components/calculators/BmiCalculator';
 import GpaCalculator from '@/components/calculators/GpaCalculator';
 import NumberConverter from '@/components/calculators/NumberConverter';
-// import GeoGebraCalculator from '@/components/GeoGebraCalculator'; // Might be too large/complex for embed
 import TrigonometryCalculator from '@/components/calculators/TrigonometryCalculator';
 import FinancialCalculators from '@/components/calculators/FinancialCalculators';
 import ElectricityCalculators from '@/components/calculators/ElectricityCalculators';
@@ -18,48 +17,85 @@ import TipCalculator from '@/components/calculators/TipCalculator';
 // Combine lists to check validity
 const allCalculators = [...calculatorList, ...(staticCalculatorList || [])];
 
+// Define the type for components that need the slug prop
+type SlugComponentEntry = {
+  component: React.ElementType;
+  needsSlug: true;
+}
+
+// Define the final combined type for componentMap values
+type ComponentMapValue = React.ElementType | SlugComponentEntry;
+
+// 🛑 FIX: Define componentMap at the top level with the explicit ComponentMapValue type
+const componentMap: { [key: string]: ComponentMapValue } = {
+  'percentage-calculator': PercentageCalculator,
+  'bmi-calculator': BmiCalculator,
+  'gpa-calculator': GpaCalculator,
+  'trigonometry-calculator': TrigonometryCalculator,
+  
+  // Grouped calculators that require the slug prop
+  'mortgage-calculator': { component: FinancialCalculators, needsSlug: true },
+  'compound-interest-calculator': { component: FinancialCalculators, needsSlug: true },
+  'simple-interest-calculator': { component: FinancialCalculators, needsSlug: true },
+  'discount-calculator': { component: FinancialCalculators, needsSlug: true },
+  
+  // Electricity calculators that require the slug prop
+  'electricity-bill-calculator': { component: ElectricityCalculators, needsSlug: true },
+  'energy-consumption-calculator': { component: ElectricityCalculators, needsSlug: true },
+  'energy-cost-calculator': { component: ElectricityCalculators, needsSlug: true },
+  
+  'matrix-calculator': MatrixCalculator,
+  'age-calculator': AgeCalculator,
+  'tip-calculator': TipCalculator,
+};
+
+// 🌟 FIX: Type Guard to safely check for the complex component structure
+function isSlugComponent(entry: ComponentMapValue): entry is SlugComponentEntry {
+  return typeof entry === 'object' && entry !== null && 'needsSlug' in entry;
+}
+
+
+// generateStaticParams remains correct as it only uses Object.keys
+export async function generateStaticParams() {
+    // Filter slugs from the top-level map
+    const embeddableSlugs = Object.keys(componentMap);
+    return embeddableSlugs.map((slug) => ({
+      calculator: slug,
+    }));
+}
+
 // Minimal layout specifically for embedding
 export default function EmbedCalculatorPage({ params }: { params: { calculator: string } }) {
   const calculatorSlug = params.calculator;
 
-  // Check if the requested calculator slug is valid
-  const calcExists = allCalculators.some(c => c.slug === calculatorSlug);
-  if (!calcExists) {
-    // Or return a simple error message component if notFound() is too disruptive
-    return <div className="p-4 text-center text-red-600">Error: Calculator not found or cannot be embedded.</div>;
+  // 1. Check if the calculator is valid based on site lists (optional, but good for validation)
+  const calcExistsInList = allCalculators.some(c => c.slug === calculatorSlug);
+  if (!calcExistsInList) {
+    return <div className="p-4 text-center text-red-600">Error: Calculator slug not recognized.</div>;
+  }
+  
+  // 2. Retrieve the component entry from the top-level map
+  const ComponentEntry = componentMap[calculatorSlug];
+
+  if (!ComponentEntry) {
+      return <div className="p-4 text-center text-orange-600">This calculator is not currently available for embedding.</div>;
   }
 
-  // Map slugs to components (similar to the main calculator page, but potentially exclude some)
-  const componentMap: { [key: string]: React.ReactNode } = {
-    'percentage-calculator': <PercentageCalculator />,
-    'bmi-calculator': <BmiCalculator />,
-    'gpa-calculator': <GpaCalculator />,
-    // 'number-converter': <NumberConverter />, // Requires props, might need adjustment for embed
-    // 'scientific-calculator': <GeoGebraCalculator />, // Likely exclude
-    'trigonometry-calculator': <TrigonometryCalculator />,
-    'mortgage-calculator': <FinancialCalculators slug={calculatorSlug} />,
-    'compound-interest-calculator': <FinancialCalculators slug={calculatorSlug} />,
-    'simple-interest-calculator': <FinancialCalculators slug={calculatorSlug} />,
-    'discount-calculator': <FinancialCalculators slug={calculatorSlug} />,
-    'electricity-bill-calculator': <ElectricityCalculators slug={calculatorSlug} />,
-    'energy-consumption-calculator': <ElectricityCalculators slug={calculatorSlug} />,
-    'energy-cost-calculator': <ElectricityCalculators slug={calculatorSlug} />,
-    'matrix-calculator': <MatrixCalculator />,
-    'age-calculator': <AgeCalculator />,
-    'tip-calculator': <TipCalculator />,
-    // Add other embeddable calculators here
-  };
-
-  const CalculatorComponent = componentMap[calculatorSlug];
-
-  if (!CalculatorComponent) {
-     return <div className="p-4 text-center text-orange-600">This calculator is not currently available for embedding.</div>;
+  let CalculatorComponent: React.ReactNode;
+  
+  // 3. Instantiate the component correctly using the type guard
+  if (isSlugComponent(ComponentEntry)) {
+      // TypeScript now knows ComponentEntry is SlugComponentEntry
+      const SpecificComponent = ComponentEntry.component as React.ElementType<{ slug: string }>;
+      CalculatorComponent = <SpecificComponent slug={calculatorSlug} />;
+  } else {
+      // TypeScript now knows ComponentEntry is a simple React.ElementType
+      const SpecificComponent = ComponentEntry as React.ElementType;
+      CalculatorComponent = <SpecificComponent />;
   }
-
+  
   // Render only the calculator component and a small footer
   return (
-    // Apply minimal styling suitable for an iframe
-    // Use vh for height to try and fill iframe, but parent page controls actual size
     <div className="p-4 bg-white min-h-screen">
       {CalculatorComponent}
 
@@ -67,24 +103,15 @@ export default function EmbedCalculatorPage({ params }: { params: { calculator: 
       <footer className="mt-6 pt-4 border-t border-gray-200 text-center text-xs text-gray-400">
         Calculator powered by{' '}
         <a
-            href="https://tablesandcalc.online" // Links back to your main site
+            href="https://tablesandcalc.online"
             className="text-blue-500 hover:underline"
-            target="_blank" // Opens link in a new tab
+            target="_blank"
             rel="noopener noreferrer"
-            title="Visit TablesAndCalc for more tools" // Tooltip for accessibility
+            title="Visit TablesAndCalc for more tools"
         >
             TablesAndCalc.online
         </a>
       </footer>
     </div>
   );
-}
-
-// Optional: Add generateStaticParams if you want to pre-render embed pages
-export async function generateStaticParams() {
-   // Filter only the slugs that have a component in componentMap
-   const embeddableSlugs = Object.keys(componentMap);
-   return embeddableSlugs.map((slug) => ({
-      calculator: slug,
-   }));
 }
