@@ -16,9 +16,9 @@ export default function ResourcesPage() {
     <div className="max-w-6xl mx-auto px-4 py-8">
       {/* Header */}
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">Learning Resources</h1>
+        <h1 className="text-4xl font-bold mb-4">Resources</h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Free guides and tutorials to help you understand key concepts in math, science, and engineering.
+          Quick guides on math, electronics, and finance basics.
         </p>
       </div>
 

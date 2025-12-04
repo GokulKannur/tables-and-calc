@@ -30,9 +30,9 @@ export default function CalculatorsPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       <div className="text-center mb-16">
-        <h1 className="text-4xl font-extrabold tracking-tight mb-4">Online Calculators</h1>
+        <h1 className="text-4xl font-extrabold tracking-tight mb-4">Calculators</h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Browse our collection of precision tools organized by category. From finance to engineering, we&apos;ve got you covered.
+          Free calculators for math, finance, health, and engineering.
         </p>
       </div>
 

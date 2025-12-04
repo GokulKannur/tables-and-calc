@@ -46,28 +46,28 @@ export default function HomePage() {
           <FeatureCard
             href="/calculators"
             title="Calculators"
-            description="Complex math, finance, and scientific calculations made simple."
+            description="Math, finance, health, and more."
             icon={Calculator}
             color="text-blue-500"
           />
           <FeatureCard
             href="/converters"
-            title="Unit Converters"
-            description="Seamlessly convert between thousands of measurement units."
+            title="Converters"
+            description="Length, weight, temperature, and other units."
             icon={RefreshCw}
             color="text-green-500"
           />
           <FeatureCard
             href="/tables"
             title="Reference Tables"
-            description="Essential data constants, material properties, and formulas."
+            description="Periodic table, log tables, wire gauges."
             icon={Table2}
             color="text-purple-500"
           />
           <FeatureCard
-            href="/symbols"
-            title="Engineering Symbols"
-            description="Standardized symbols for electrical and mechanical diagrams."
+            href="/resources"
+            title="Learning Resources"
+            description="Guides on Ohm's law, percentages, and more."
             icon={BookOpen}
             color="text-orange-500"
           />
@@ -83,12 +83,18 @@ export default function HomePage() {
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {['Scientific Calculator', 'BMI Calculator', 'Mortgage Estimator'].map((tool, i) => (
-            <div key={i} className="group relative rounded-lg border p-6 hover:bg-secondary/40 transition-colors">
-              <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">{tool}</h3>
-              <p className="text-sm text-muted-foreground">Quick and accurate calculations for your daily needs.</p>
-            </div>
-          ))}
+          <Link href="/calculators/scientific-calculator" className="group rounded-lg border p-6 hover:bg-secondary/40 hover:border-primary/50 transition-all">
+            <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">Scientific Calculator</h3>
+            <p className="text-sm text-muted-foreground">Trig, logs, and advanced math.</p>
+          </Link>
+          <Link href="/calculators/bmi-calculator" className="group rounded-lg border p-6 hover:bg-secondary/40 hover:border-primary/50 transition-all">
+            <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">BMI Calculator</h3>
+            <p className="text-sm text-muted-foreground">Check your body mass index.</p>
+          </Link>
+          <Link href="/calculators/compound-interest-calculator" className="group rounded-lg border p-6 hover:bg-secondary/40 hover:border-primary/50 transition-all">
+            <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">Compound Interest</h3>
+            <p className="text-sm text-muted-foreground">See how your money grows.</p>
+          </Link>
         </div>
       </section>
 
