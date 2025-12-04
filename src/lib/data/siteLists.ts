@@ -412,7 +412,7 @@ export const tableList: (ListItem & { category: string })[] = [
     category: 'Chemistry', // ✨ Assign category
   },
   {
-    slug: 'logarithm-table',
+    slug: 'logarithm',
     title: 'Logarithm Table',
     description: 'Common (base 10) and natural (base e) logarithms.',
     emoji: '🔢',

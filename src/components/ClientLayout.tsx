@@ -1,11 +1,13 @@
 // src/components/ClientLayout.tsx
 "use client";
 
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import FeedbackModal from '@/components/FeedbackModal';
 import Breadcrumbs from '@/components/Breadcrumbs';
+
+// Lazy load the modal - it's not needed on initial render
+const FeedbackModal = lazy(() => import('@/components/FeedbackModal'));
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
@@ -18,10 +20,14 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         {children}
       </main>
       <Footer />
-      <FeedbackModal
-        isOpen={isFeedbackModalOpen}
-        onClose={() => setIsFeedbackModalOpen(false)}
-      />
+      {isFeedbackModalOpen && (
+        <Suspense fallback={null}>
+          <FeedbackModal
+            isOpen={isFeedbackModalOpen}
+            onClose={() => setIsFeedbackModalOpen(false)}
+          />
+        </Suspense>
+      )}
     </>
   );
 }

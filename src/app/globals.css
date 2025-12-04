@@ -140,5 +140,40 @@
     @apply bg-background text-foreground;
     overflow-x: hidden;
     max-width: 100vw;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* GPU acceleration for animated elements */
+  .animate-in,
+  .transition-all,
+  .transition-transform,
+  .transition-opacity {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+  }
+
+  /* Optimize images */
+  img {
+    content-visibility: auto;
   }
 }

@@ -92,19 +92,19 @@ export default function UnitConverter({ category }: UnitConverterProps) {
             <div className="grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] gap-4 items-center">
                 {/* From Section */}
                 <div className="space-y-2">
-                    <label className="text-sm font-medium text-slate-500">From</label>
-                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                    <label className="text-sm font-medium text-muted-foreground">From</label>
+                    <div className="p-4 bg-card rounded-xl border border-border space-y-3">
                         <input
                             type="number"
                             value={amount}
                             onChange={(e) => setAmount(e.target.value)}
-                            className="w-full text-3xl font-bold bg-transparent border-none focus:ring-0 p-0 placeholder:text-slate-300"
+                            className="w-full text-3xl font-bold bg-transparent border-none focus:ring-0 p-0 placeholder:text-muted-foreground text-foreground"
                             placeholder="0"
                         />
                         <select
                             value={fromUnit}
                             onChange={(e) => setFromUnit(e.target.value)}
-                            className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                            className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                         >
                             {data.units.map((u) => (
                                 <option key={u.id} value={u.id}>{u.name}</option>
@@ -117,7 +117,7 @@ export default function UnitConverter({ category }: UnitConverterProps) {
                 <div className="flex justify-center md:pt-6">
                     <button
                         onClick={handleSwap}
-                        className="p-3 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors"
+                        className="p-3 rounded-full bg-secondary hover:bg-secondary/80 text-muted-foreground transition-colors"
                         aria-label="Swap units"
                     >
                         <ArrowRightLeft className="w-5 h-5" />
@@ -126,15 +126,15 @@ export default function UnitConverter({ category }: UnitConverterProps) {
 
                 {/* To Section */}
                 <div className="space-y-2">
-                    <label className="text-sm font-medium text-slate-500">To</label>
-                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                    <label className="text-sm font-medium text-muted-foreground">To</label>
+                    <div className="p-4 bg-card rounded-xl border border-border space-y-3">
                         <div className="w-full text-3xl font-bold text-primary truncate min-h-[36px]">
                             {result !== null ? result : '...'}
                         </div>
                         <select
                             value={toUnit}
                             onChange={(e) => setToUnit(e.target.value)}
-                            className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                            className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                         >
                             {data.units.map((u) => (
                                 <option key={u.id} value={u.id}>{u.name}</option>
@@ -146,7 +146,7 @@ export default function UnitConverter({ category }: UnitConverterProps) {
 
             {/* Result Card */}
             {result && (
-                <div className="bg-slate-900 text-white rounded-xl p-6 flex items-center justify-between shadow-lg">
+                <div className="bg-slate-900 dark:bg-slate-800 text-white rounded-xl p-6 flex items-center justify-between shadow-lg">
                     <div>
                         <div className="text-slate-400 text-sm mb-1">Result</div>
                         <div className="text-2xl sm:text-3xl font-bold">
@@ -165,26 +165,26 @@ export default function UnitConverter({ category }: UnitConverterProps) {
             )}
 
             {/* Info Section */}
-            <div className="grid md:grid-cols-2 gap-6 pt-8 border-t">
+            <div className="grid md:grid-cols-2 gap-6 pt-8 border-t border-border">
                 {fromUnit && data.info?.[fromUnit] && (
                     <div className="space-y-3">
-                        <h3 className="font-semibold text-lg flex items-center gap-2">
+                        <h3 className="font-semibold text-lg flex items-center gap-2 text-foreground">
                             About {data.info[fromUnit].name}
                         </h3>
-                        <p className="text-sm text-slate-600 leading-relaxed">{data.info[fromUnit].definition}</p>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{data.info[fromUnit].definition}</p>
                         {data.info[fromUnit].history && (
-                            <p className="text-sm text-slate-500 italic">History: {data.info[fromUnit].history}</p>
+                            <p className="text-sm text-muted-foreground/80 italic">History: {data.info[fromUnit].history}</p>
                         )}
                     </div>
                 )}
                 {toUnit && data.info?.[toUnit] && toUnit !== fromUnit && (
                     <div className="space-y-3">
-                        <h3 className="font-semibold text-lg flex items-center gap-2">
+                        <h3 className="font-semibold text-lg flex items-center gap-2 text-foreground">
                             About {data.info[toUnit].name}
                         </h3>
-                        <p className="text-sm text-slate-600 leading-relaxed">{data.info[toUnit].definition}</p>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{data.info[toUnit].definition}</p>
                         {data.info[toUnit].history && (
-                            <p className="text-sm text-slate-500 italic">History: {data.info[toUnit].history}</p>
+                            <p className="text-sm text-muted-foreground/80 italic">History: {data.info[toUnit].history}</p>
                         )}
                     </div>
                 )}
