@@ -20,7 +20,7 @@ export default function Footer() {
               Your go-to destination for free online calculators, unit converters, and engineering reference tables. Simple, accurate, and professional.
             </p>
             <div className="flex items-center gap-4">
-              <a href="https://github.com" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+              <a href="https://github.com/GokulKannur/tables-and-calc" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
                 <Github className="w-5 h-5" />
                 <span className="sr-only">GitHub</span>
               </a>
@@ -59,7 +59,7 @@ export default function Footer() {
             <h3 className="font-semibold mb-4">Resources</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/blog" className="text-muted-foreground hover:text-primary transition-colors">Blog</Link>
+                <Link href="/resources" className="text-muted-foreground hover:text-primary transition-colors">Learning Resources</Link>
               </li>
               <li>
                 <Link href="/about" className="text-muted-foreground hover:text-primary transition-colors">About Us</Link>
