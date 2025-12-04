@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Search as SearchIcon, Calculator, ChevronDown, Table, Type, BookOpen, Info, MessageSquare } from 'lucide-react';
+import { Menu, X, Calculator, Table, Type, BookOpen, Info, MessageSquare } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { cn } from '@/lib/utils';
 import Search from './Search';
@@ -18,6 +17,7 @@ export default function Navbar({ onFeedbackClick }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
+  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -26,12 +26,28 @@ export default function Navbar({ onFeedbackClick }: NavbarProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
+
+  // Close menu on route change
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
+
   const navLinks = [
     { href: "/calculators", label: "Calculators", icon: Calculator },
     { href: "/converters", label: "Converters", icon: Type },
     { href: "/tables", label: "Tables", icon: Table },
-    { href: "/resources", label: "Resources", icon: Info },
-    { href: "/about", label: "About", icon: Info },
+    { href: "/resources", label: "Resources", icon: BookOpen },
   ];
 
   return (
@@ -75,6 +91,18 @@ export default function Navbar({ onFeedbackClick }: NavbarProps) {
               </Link>
             );
           })}
+          <Link
+            href="/about"
+            className={cn(
+              "flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+              pathname === "/about"
+                ? "bg-secondary text-secondary-foreground"
+                : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+            )}
+          >
+            <Info className="w-4 h-4" />
+            About
+          </Link>
         </div>
 
         {/* Right Side Actions */}
@@ -105,83 +133,103 @@ export default function Navbar({ onFeedbackClick }: NavbarProps) {
       </div>
 
       {/* Mobile Menu Overlay */}
-      {isMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-background md:hidden animate-in slide-in-from-right-full duration-200">
-          <div className="flex flex-col h-full">
-            <div className="flex items-center justify-between p-4 border-b">
-              <span className="text-lg font-bold">Menu</span>
-              <button
+      <div
+        className={cn(
+          "fixed inset-0 z-50 bg-background md:hidden transition-transform duration-300 ease-in-out",
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        )}
+      >
+        <div className="flex flex-col h-full">
+          {/* Header */}
+          <div className="flex items-center justify-between p-4 border-b">
+            <span className="text-lg font-bold">Menu</span>
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              className="p-2 text-muted-foreground hover:text-foreground rounded-lg hover:bg-secondary"
+              aria-label="Close menu"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+
+          {/* Menu Content */}
+          <div className="flex-1 p-4 overflow-y-auto">
+            {/* Search */}
+            <div className="mb-6">
+              <Search />
+            </div>
+
+            {/* Nav Links */}
+            <div className="space-y-1">
+              {navLinks.map((link) => {
+                const Icon = link.icon;
+                const isActive = pathname.startsWith(link.href);
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={cn(
+                      "flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium transition-colors",
+                      isActive
+                        ? "bg-primary text-primary-foreground"
+                        : "text-foreground hover:bg-secondary"
+                    )}
+                  >
+                    <Icon className="w-5 h-5" />
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </div>
+
+            {/* Divider */}
+            <div className="my-4 border-t" />
+
+            {/* Secondary Links */}
+            <div className="space-y-1">
+              <Link
+                href="/about"
                 onClick={() => setIsMenuOpen(false)}
-                className="p-2 text-muted-foreground hover:text-foreground"
-                aria-label="Close menu"
+                className={cn(
+                  "flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium transition-colors",
+                  pathname === "/about"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-foreground hover:bg-secondary"
+                )}
               >
-                <X className="w-6 h-6" />
+                <Info className="w-5 h-5" />
+                About
+              </Link>
+              <button
+                onClick={() => {
+                  onFeedbackClick();
+                  setIsMenuOpen(false);
+                }}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium text-foreground hover:bg-secondary transition-colors"
+              >
+                <MessageSquare className="w-5 h-5" />
+                Feedback
               </button>
             </div>
 
-            <div className="p-4 space-y-4 overflow-y-auto">
-              <div className="flex items-center justify-between mb-6">
-                <div className="text-sm font-medium text-muted-foreground">Switch Theme</div>
+            {/* Theme Toggle */}
+            <div className="mt-6 pt-4 border-t">
+              <div className="flex items-center justify-between px-4 py-2">
+                <span className="text-sm text-muted-foreground">Theme</span>
                 <ThemeToggle />
-              </div>
-              <div className="mb-6">
-                {/* Mobile Search */}
-                <div className="relative w-full">
-                  <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className="flex h-10 w-full rounded-md border border-input bg-background py-2 pl-9 pr-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col space-y-1">
-                {navLinks.map((link) => {
-                  const Icon = link.icon;
-                  const isActive = pathname.startsWith(link.href);
-                  return (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setIsMenuOpen(false)}
-                      className={cn(
-                        "flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium transition-colors",
-                        isActive
-                          ? "bg-secondary text-secondary-foreground"
-                          : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                      )}
-                    >
-                      <Icon className="w-5 h-5" />
-                      {link.label}
-                    </Link>
-                  );
-                })}
-              </div>
-
-              <div className="pt-4 border-t">
-                <Link
-                  href="/about"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                >
-                  <Info className="w-5 h-5" />
-                  About
-                </Link>
-                <button
-                  onClick={() => {
-                    onFeedbackClick();
-                    setIsMenuOpen(false);
-                  }}
-                  className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                >
-                  <MessageSquare className="w-5 h-5" />
-                  Feedback
-                </button>
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Backdrop */}
+      {isMenuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 md:hidden"
+          onClick={() => setIsMenuOpen(false)}
+        />
       )}
     </nav>
   );

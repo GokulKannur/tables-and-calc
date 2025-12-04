@@ -100,19 +100,23 @@ export default function HomePage() {
 
       {/* FAQ SECTION */}
       <section className="container mx-auto px-4 max-w-3xl">
-        <h2 className="text-2xl font-bold text-center mb-10">Frequently Asked Questions</h2>
-        <div className="space-y-6">
-          <div className="rounded-lg border p-6">
-            <h3 className="text-lg font-semibold mb-2">Are these tools free to use?</h3>
-            <p className="text-muted-foreground">
-              Yes, all calculators, converters, and reference tables on TablesAndCalc are completely free to use for both personal and commercial purposes.
-            </p>
+        <h2 className="text-2xl font-bold text-center mb-10">Common Questions</h2>
+        <div className="space-y-4">
+          <div className="rounded-lg border p-5">
+            <h3 className="font-semibold mb-2">Is this free?</h3>
+            <p className="text-muted-foreground">Yes. Everything is free. No hidden fees, no premium plans.</p>
           </div>
-          <div className="rounded-lg border p-6">
-            <h3 className="text-lg font-semibold mb-2">How accurate are the converters?</h3>
-            <p className="text-muted-foreground">
-              Our converters use standard conversion factors from NIST and other international standards organizations to ensure high precision.
-            </p>
+          <div className="rounded-lg border p-5">
+            <h3 className="font-semibold mb-2">Do I need to sign up?</h3>
+            <p className="text-muted-foreground">No. Just use the tools. No account needed.</p>
+          </div>
+          <div className="rounded-lg border p-5">
+            <h3 className="font-semibold mb-2">Is my data saved anywhere?</h3>
+            <p className="text-muted-foreground">No. All calculations happen in your browser. Nothing is stored on any server.</p>
+          </div>
+          <div className="rounded-lg border p-5">
+            <h3 className="font-semibold mb-2">Can I use this for work or school?</h3>
+            <p className="text-muted-foreground">Yes. Use it however you want.</p>
           </div>
         </div>
       </section>
@@ -127,18 +131,26 @@ export default function HomePage() {
             "mainEntity": [
               {
                 "@type": "Question",
-                "name": "Are these tools free to use?",
+                "name": "Is TablesAndCalc free?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Yes, all calculators, converters, and reference tables on TablesAndCalc are completely free to use for both personal and commercial purposes."
+                  "text": "Yes. Everything is free. No hidden fees, no premium plans."
                 }
               },
               {
                 "@type": "Question",
-                "name": "How accurate are the converters?",
+                "name": "Do I need to sign up?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Our converters use standard conversion factors from NIST and other international standards organizations to ensure high precision."
+                  "text": "No. Just use the tools. No account needed."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is my data saved anywhere?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. All calculations happen in your browser. Nothing is stored on any server."
                 }
               }
             ]

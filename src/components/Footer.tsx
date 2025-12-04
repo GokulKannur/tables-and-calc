@@ -73,25 +73,19 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Newsletter (Mockup) */}
+
+          {/* Newsletter */}
           <div>
             <h3 className="font-semibold mb-4">Stay Updated</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Subscribe to our newsletter for new tools and updates.
+              Get notified when new tools are added.
             </p>
-            <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-3 py-2 rounded-md border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-              />
-              <button
-                type="submit"
-                className="px-3 py-2 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 transition-colors"
-              >
-                Subscribe
-              </button>
-            </form>
+            <Link
+              href="/coming-soon"
+              className="inline-block px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 transition-colors"
+            >
+              Subscribe
+            </Link>
           </div>
         </div>
 
