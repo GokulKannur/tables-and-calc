@@ -13,93 +13,83 @@ export default function PrivacyPolicyPage() {
             <p className="text-muted-foreground mb-8">Last updated: December 2024</p>
 
             <div className="prose prose-slate dark:prose-invert max-w-none space-y-8">
-                <section>
-                    <h2 className="text-2xl font-semibold mb-4">Introduction</h2>
-                    <p className="text-muted-foreground leading-relaxed">
-                        Welcome to TablesAndCalc. Your privacy is important to us. This Privacy Policy explains how we collect,
-                        use, and protect your information when you use our website and services.
+                <section className="bg-secondary/30 p-6 rounded-lg">
+                    <h2 className="text-2xl font-semibold mb-4">The Short Version</h2>
+                    <p className="text-foreground leading-relaxed font-medium">
+                        We don&apos;t collect your personal data. Period. All calculations happen in your browser,
+                        and we don&apos;t store anything about you or what you calculate.
                     </p>
                 </section>
 
                 <section>
-                    <h2 className="text-2xl font-semibold mb-4">Information We Collect</h2>
-
-                    <h3 className="text-xl font-medium mt-6 mb-3">Information You Provide</h3>
+                    <h2 className="text-2xl font-semibold mb-4">What We Don&apos;t Collect</h2>
                     <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                        <li><strong>Feedback submissions:</strong> When you submit feedback through our form, we collect the message content to improve our services.</li>
-                        <li><strong>Newsletter:</strong> If you subscribe to our newsletter, we collect your email address.</li>
-                    </ul>
-
-                    <h3 className="text-xl font-medium mt-6 mb-3">Automatically Collected Information</h3>
-                    <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                        <li><strong>Usage data:</strong> We may collect anonymous usage statistics to understand how our tools are used.</li>
-                        <li><strong>Device information:</strong> Basic information like browser type and screen size to optimize user experience.</li>
+                        <li>We don&apos;t collect your name, email, or any personal information</li>
+                        <li>We don&apos;t track what calculations you perform</li>
+                        <li>We don&apos;t store your inputs or results</li>
+                        <li>We don&apos;t require you to create an account</li>
+                        <li>We don&apos;t sell or share any data (because we don&apos;t have any)</li>
                     </ul>
                 </section>
 
                 <section>
-                    <h2 className="text-2xl font-semibold mb-4">How We Use Your Information</h2>
-                    <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                        <li>To provide and maintain our free tools and services</li>
-                        <li>To improve and optimize our website</li>
-                        <li>To respond to your feedback and inquiries</li>
-                        <li>To send occasional updates about new features (only if you subscribed)</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2 className="text-2xl font-semibold mb-4">Data Storage</h2>
+                    <h2 className="text-2xl font-semibold mb-4">How Our Tools Work</h2>
                     <p className="text-muted-foreground leading-relaxed">
-                        All calculations and conversions are performed locally in your browser. We do not store your calculation
-                        inputs or results on our servers. Your data stays on your device.
+                        All calculations, conversions, and tools run <strong>entirely in your browser</strong>.
+                        When you use our calculators or converters, the processing happens on your device —
+                        nothing is sent to our servers. Your data never leaves your computer.
                     </p>
                 </section>
 
                 <section>
-                    <h2 className="text-2xl font-semibold mb-4">Cookies</h2>
+                    <h2 className="text-2xl font-semibold mb-4">Local Storage</h2>
                     <p className="text-muted-foreground leading-relaxed">
-                        We use minimal cookies for essential functionality:
+                        We use your browser&apos;s local storage only to remember your theme preference (light/dark mode).
+                        This stays on your device and is never transmitted anywhere.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 className="text-2xl font-semibold mb-4">Third-Party Analytics</h2>
+                    <p className="text-muted-foreground leading-relaxed">
+                        We use Google Analytics to understand general website traffic (like which pages are popular).
+                        This is a third-party service that may collect anonymous data such as:
                     </p>
                     <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
-                        <li><strong>Theme preference:</strong> To remember your light/dark mode choice</li>
-                        <li><strong>Analytics:</strong> Anonymous usage statistics to improve our services</li>
+                        <li>Pages visited</li>
+                        <li>Time spent on site</li>
+                        <li>General geographic region</li>
+                        <li>Device type and browser</li>
                     </ul>
-                </section>
-
-                <section>
-                    <h2 className="text-2xl font-semibold mb-4">Third-Party Services</h2>
-                    <p className="text-muted-foreground leading-relaxed">
-                        We may use third-party services for analytics and hosting. These services have their own privacy policies
-                        governing their data practices.
+                    <p className="text-muted-foreground leading-relaxed mt-4">
+                        <strong>We have no control over what Google Analytics collects.</strong> This data is processed
+                        by Google according to their own privacy policy. If you want to opt out, you can use browser
+                        extensions like &quot;Google Analytics Opt-out&quot; or enable &quot;Do Not Track&quot; in your browser.
                     </p>
                 </section>
 
                 <section>
-                    <h2 className="text-2xl font-semibold mb-4">Your Rights</h2>
+                    <h2 className="text-2xl font-semibold mb-4">Hosting</h2>
                     <p className="text-muted-foreground leading-relaxed">
-                        You have the right to:
+                        Our website is hosted on third-party infrastructure that may automatically log basic
+                        request information (IP addresses, request times) as part of standard web server operations.
+                        We don&apos;t access or use these logs.
                     </p>
-                    <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
-                        <li>Access information we have about you</li>
-                        <li>Request deletion of your data</li>
-                        <li>Opt out of newsletters at any time</li>
-                        <li>Disable cookies in your browser settings</li>
-                    </ul>
                 </section>
 
                 <section>
-                    <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
+                    <h2 className="text-2xl font-semibold mb-4">No Cookies (From Us)</h2>
                     <p className="text-muted-foreground leading-relaxed">
-                        If you have questions about this Privacy Policy, please contact us through our{' '}
+                        We don&apos;t set any cookies ourselves. However, Google Analytics may set cookies as part of
+                        their tracking. You can block these using your browser settings or privacy extensions.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 className="text-2xl font-semibold mb-4">Contact</h2>
+                    <p className="text-muted-foreground leading-relaxed">
+                        Questions? Reach out through our{' '}
                         <a href="/feedback" className="text-primary hover:underline">feedback page</a>.
-                    </p>
-                </section>
-
-                <section>
-                    <h2 className="text-2xl font-semibold mb-4">Changes to This Policy</h2>
-                    <p className="text-muted-foreground leading-relaxed">
-                        We may update this Privacy Policy from time to time. We will notify you of any significant changes
-                        by posting the new policy on this page.
                     </p>
                 </section>
             </div>

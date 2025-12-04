@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
       default: 'Free Online Calculators, Converters & Tools | TablesAndCalc',
       template: '%s | TablesAndCalc',
     },
-    description: 'Free online calculators, unit converters, reference tables, and symbols. Simple, modern tools for students and professionals.',
+    description: 'Free calculators, unit converters, and reference tables. Simple tools for students and professionals.',
     keywords: [
       'online calculators',
       'unit converters',
