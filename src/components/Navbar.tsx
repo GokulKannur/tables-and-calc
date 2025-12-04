@@ -106,8 +106,8 @@ export default function Navbar({ onFeedbackClick }: NavbarProps) {
         </div>
 
         {/* Right Side Actions */}
-        <div className="flex items-center gap-2">
-          <div className="hidden sm:block w-64">
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="hidden sm:block w-48 lg:w-64">
             <Search />
           </div>
 
@@ -115,7 +115,7 @@ export default function Navbar({ onFeedbackClick }: NavbarProps) {
 
           <button
             onClick={onFeedbackClick}
-            className="hidden md:flex items-center gap-2 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            className="hidden md:flex items-center gap-2 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex-shrink-0"
           >
             <MessageSquare className="w-4 h-4" />
             Feedback
@@ -124,7 +124,7 @@ export default function Navbar({ onFeedbackClick }: NavbarProps) {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setIsMenuOpen(true)}
-            className="md:hidden p-2 text-muted-foreground hover:text-foreground"
+            className="md:hidden p-2 text-muted-foreground hover:text-foreground flex-shrink-0"
             aria-label="Open menu"
           >
             <Menu className="w-6 h-6" />

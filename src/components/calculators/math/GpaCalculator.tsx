@@ -42,41 +42,41 @@ export default function GpaCalculator() {
   };
 
   return (
-    <div className="bg-white p-6 border rounded-lg shadow-sm space-y-6">
-      <div className="space-y-4">
+    <div className="bg-card p-4 md:p-6 border rounded-lg shadow-sm space-y-6">
+      <div className="space-y-3">
         {courses.map((course, index) => (
-          <div key={index} className="flex items-center gap-4">
-            <input 
-              type="text" 
-              placeholder={`Course ${index + 1} (Optional)`}
-              className="flex-1 p-2 border border-slate-300 rounded-md"
+          <div key={index} className="flex flex-wrap items-center gap-2 md:gap-4">
+            <input
+              type="text"
+              placeholder={`Course ${index + 1}`}
+              className="flex-1 min-w-[120px] p-2 border rounded-md bg-background"
             />
-            <select 
-              value={course.grade} 
+            <select
+              value={course.grade}
               onChange={(e) => handleCourseChange(index, 'grade', e.target.value)}
-              className="p-2 border border-slate-300 rounded-md bg-slate-50"
+              className="p-2 border rounded-md bg-background"
             >
               {Object.keys(gradePoints).map(grade => <option key={grade} value={grade}>{grade}</option>)}
             </select>
-            <input 
-              type="number" 
+            <input
+              type="number"
               value={course.credits}
               onChange={(e) => handleCourseChange(index, 'credits', e.target.value)}
-              placeholder="Credits" 
-              className="w-24 p-2 border border-slate-300 rounded-md"
+              placeholder="Credits"
+              className="w-20 p-2 border rounded-md bg-background"
             />
-            <button onClick={() => removeCourse(index)} className="text-red-500 hover:text-red-700">✕</button>
+            <button onClick={() => removeCourse(index)} className="text-destructive hover:opacity-70 p-1">✕</button>
           </div>
         ))}
       </div>
-      <div className="flex gap-4">
-        <button onClick={addCourse} className="w-full p-3 bg-slate-200 text-slate-800 font-semibold rounded-lg hover:bg-slate-300">Add Course</button>
-        <button onClick={calculateGpa} className="w-full p-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700">Calculate GPA</button>
+      <div className="flex flex-col sm:flex-row gap-3">
+        <button onClick={addCourse} className="flex-1 p-3 bg-secondary text-secondary-foreground font-semibold rounded-lg hover:bg-secondary/80">Add Course</button>
+        <button onClick={calculateGpa} className="flex-1 p-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90">Calculate GPA</button>
       </div>
       {gpa && (
         <div className="text-center pt-4 border-t">
-          <p className="text-slate-600">Your GPA is:</p>
-          <p className="text-5xl font-bold text-blue-600">{gpa}</p>
+          <p className="text-muted-foreground text-sm">Your GPA is:</p>
+          <p className="text-5xl font-bold text-primary">{gpa}</p>
         </div>
       )}
     </div>

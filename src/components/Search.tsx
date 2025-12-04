@@ -6,7 +6,6 @@ import Fuse from 'fuse.js';
 import { searchIndex } from '@/lib/searchIndex';
 import Link from 'next/link';
 
-// Define the shape of the data in your searchIndex
 interface SearchItem {
   title: string;
   description: string;
@@ -14,14 +13,12 @@ interface SearchItem {
   keywords?: string;
 }
 
-// Define the shape of the search result item that Fuse.js returns
 interface FuseResult {
   item: SearchItem;
   refIndex: number;
   score?: number;
 }
 
-// Configure Fuse.js
 const fuse = new Fuse(searchIndex, {
   keys: ['title', 'description', 'keywords'],
   includeScore: true,
@@ -43,7 +40,6 @@ export default function Search() {
     }
   }, [query]);
 
-  // Handle clicks outside the component to close the dropdown
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
@@ -67,8 +63,8 @@ export default function Search() {
         value={query}
         onChange={handleInputChange}
         onFocus={() => setIsFocused(true)}
-        placeholder="Search for a tool..."
-        className="w-48 p-2 border border-slate-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-all"
+        placeholder="Search..."
+        className="w-full p-2 border rounded-md bg-background focus:ring-2 focus:ring-primary/50 focus:outline-none transition-all"
       />
 
       {isFocused && query && (
@@ -79,15 +75,15 @@ export default function Search() {
                 <Link
                   href={item.path}
                   onClick={() => { setQuery(''); setIsFocused(false); }}
-                  className="block p-3 hover:bg-slate-100"
+                  className="block p-3 hover:bg-secondary transition-colors"
                 >
-                  <p className="font-semibold text-slate-800">{item.title}</p>
-                  <p className="text-sm text-slate-500">{item.description}</p>
+                  <p className="font-semibold">{item.title}</p>
+                  <p className="text-sm text-muted-foreground">{item.description}</p>
                 </Link>
               </li>
             ))
           ) : (
-            <li className="p-3 text-sm text-slate-500">No results found.</li>
+            <li className="p-3 text-sm text-muted-foreground">No results found.</li>
           )}
         </ul>
       )}

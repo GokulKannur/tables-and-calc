@@ -14,8 +14,8 @@ export const resourcesList: ResourceListItem[] = [
       <p>A <strong>logic gate</strong> is an idealized or physical device implementing a Boolean function. It performs a logical operation on one or more binary inputs to produce a single binary output. Logic gates are the fundamental building blocks of all digital circuits, from simple calculators to complex computer processors.</p>
       
       <figure class="my-6">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c0/IEC_Logic_Gates.svg" alt="Logic Gate Symbols" class="w-full max-w-lg mx-auto rounded-lg border" />
-        <figcaption class="text-center text-sm text-muted-foreground mt-2">Standard logic gate symbols (IEC)</figcaption>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/ANSI_Logic_gates.svg/800px-ANSI_Logic_gates.svg.png" alt="Logic Gate Symbols" class="w-full max-w-lg mx-auto rounded-lg border bg-white p-2" />
+        <figcaption class="text-center text-sm text-muted-foreground mt-2">Standard logic gate symbols</figcaption>
       </figure>
 
       <h3>The Seven Basic Logic Gates</h3>
@@ -162,8 +162,8 @@ export const resourcesList: ResourceListItem[] = [
       <p>Resistors use colored bands to indicate their resistance value. This system allows manufacturers to mark small components that would be impossible to print numbers on.</p>
 
       <figure class="my-6">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Resistor_bands.svg/800px-Resistor_bands.svg.png" alt="Resistor Color Bands" class="w-full max-w-lg mx-auto rounded-lg border" />
-        <figcaption class="text-center text-sm text-muted-foreground mt-2">4-band and 5-band resistor color coding</figcaption>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Resistor.svg/800px-Resistor.svg.png" alt="Resistor Color Bands" class="w-full max-w-lg mx-auto rounded-lg border bg-white p-4" />
+        <figcaption class="text-center text-sm text-muted-foreground mt-2">Resistor with color bands</figcaption>
       </figure>
 
       <h3>Color Code Chart</h3>
