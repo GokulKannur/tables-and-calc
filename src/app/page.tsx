@@ -15,11 +15,11 @@ export default function HomePage() {
             ✨ New: Financial Calculators Added
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-            Free Tools for <br className="hidden md:block" />
-            <span className="text-primary">Everyone</span>
+            Calculators <br className="hidden md:block" />
+            <span className="text-primary">& Converters</span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-            Simple calculators, converters, and reference tables. No signup, no fees—just the tools you need.
+            Free tools. No ads. No signup.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
