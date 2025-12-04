@@ -1,0 +1,34 @@
+export interface ElementData {
+    number: number;
+    symbol: string;
+    name: string;
+    atomicMass: number;
+    category: string;
+    group: number;
+    period: number;
+    summary: string;
+}
+
+export const periodicTableData: ElementData[] = [
+    { number: 1, symbol: "H", name: "Hydrogen", atomicMass: 1.008, category: "diatomic nonmetal", group: 1, period: 1, summary: "Hydrogen is a chemical element with symbol H and atomic number 1. With a standard atomic weight of 1.008, hydrogen is the lightest element on the periodic table." },
+    { number: 2, symbol: "He", name: "Helium", atomicMass: 4.0026, category: "noble gas", group: 18, period: 1, summary: "Helium is a chemical element with symbol He and atomic number 2. It is a colorless, odorless, tasteless, non-toxic, inert, monatomic gas, the first in the noble gas group in the periodic table." },
+    { number: 3, symbol: "Li", name: "Lithium", atomicMass: 6.94, category: "alkali metal", group: 1, period: 2, summary: "Lithium is a chemical element with symbol Li and atomic number 3. It is a soft, silvery-white alkali metal. Under standard conditions, it is the lightest metal and the lightest solid element." },
+    { number: 4, symbol: "Be", name: "Beryllium", atomicMass: 9.0122, category: "alkaline earth metal", group: 2, period: 2, summary: "Beryllium is a chemical element with symbol Be and atomic number 4. It is a relatively rare element in the universe, usually occurring as a product of the spallation of larger atomic nuclei that have collided with cosmic rays." },
+    { number: 5, symbol: "B", name: "Boron", atomicMass: 10.81, category: "metalloid", group: 13, period: 2, summary: "Boron is a chemical element with symbol B and atomic number 5. Produced entirely by cosmic ray spallation and supernovae and not by stellar nucleosynthesis, it is a low-abundance element in the Solar system and in the Earth's crust." },
+    { number: 6, symbol: "C", name: "Carbon", atomicMass: 12.011, category: "polyatomic nonmetal", group: 14, period: 2, summary: "Carbon is a chemical element with symbol C and atomic number 6. It is nonmetallic and tetravalent—making four electrons available to form covalent chemical bonds." },
+    { number: 7, symbol: "N", name: "Nitrogen", atomicMass: 14.007, category: "diatomic nonmetal", group: 15, period: 2, summary: "Nitrogen is a chemical element with symbol N and atomic number 7. It was first discovered and isolated by Scottish physician Daniel Rutherford in 1772." },
+    { number: 8, symbol: "O", name: "Oxygen", atomicMass: 15.999, category: "diatomic nonmetal", group: 16, period: 2, summary: "Oxygen is a chemical element with symbol O and atomic number 8. It is a member of the chalcogen group on the periodic table, a highly reactive nonmetal, and an oxidizing agent that readily forms oxides with most elements as well as with other compounds." },
+    { number: 9, symbol: "F", name: "Fluorine", atomicMass: 18.998, category: "diatomic nonmetal", group: 17, period: 2, summary: "Fluorine is a chemical element with symbol F and atomic number 9. It is the lightest halogen and exists as a highly toxic pale yellow diatomic gas at standard conditions." },
+    { number: 10, symbol: "Ne", name: "Neon", atomicMass: 20.180, category: "noble gas", group: 18, period: 2, summary: "Neon is a chemical element with symbol Ne and atomic number 10. It is a noble gas. Neon is a colorless, odorless, inert monatomic gas under standard conditions, with about two-thirds the density of air." },
+    { number: 11, symbol: "Na", name: "Sodium", atomicMass: 22.990, category: "alkali metal", group: 1, period: 3, summary: "Sodium is a chemical element with symbol Na and atomic number 11. It is a soft, silvery-white, highly reactive metal. Sodium is an alkali metal, being in group 1 of the periodic table." },
+    { number: 12, symbol: "Mg", name: "Magnesium", atomicMass: 24.305, category: "alkaline earth metal", group: 2, period: 3, summary: "Magnesium is a chemical element with symbol Mg and atomic number 12. It is a shiny gray solid which bears a close physical resemblance to the other five elements in the second column (group 2, or alkaline earth metals) of the periodic table." },
+    { number: 13, symbol: "Al", name: "Aluminium", atomicMass: 26.982, category: "post-transition metal", group: 13, period: 3, summary: "Aluminium is a chemical element with symbol Al and atomic number 13. It is a silvery-white, soft, nonmagnetic and ductile metal in the boron group." },
+    { number: 14, symbol: "Si", name: "Silicon", atomicMass: 28.085, category: "metalloid", group: 14, period: 3, summary: "Silicon is a chemical element with symbol Si and atomic number 14. A hard, brittle crystalline solid with a blue-grey metallic lustre, it is a tetravalent metalloid and semiconductor." },
+    { number: 15, symbol: "P", name: "Phosphorus", atomicMass: 30.974, category: "polyatomic nonmetal", group: 15, period: 3, summary: "Phosphorus is a chemical element with symbol P and atomic number 15. Elemental phosphorus exists in two major forms, white phosphorus and red phosphorus, but because it is highly reactive, phosphorus is never found as a free element on Earth." },
+    { number: 16, symbol: "S", name: "Sulfur", atomicMass: 32.06, category: "polyatomic nonmetal", group: 16, period: 3, summary: "Sulfur is a chemical element with symbol S and atomic number 16. It is an abundant, multivalent and nonmetallic." },
+    { number: 17, symbol: "Cl", name: "Chlorine", atomicMass: 35.45, category: "diatomic nonmetal", group: 17, period: 3, summary: "Chlorine is a chemical element with symbol Cl and atomic number 17. The second-lightest of the halogens, it appears between fluorine and bromine in the periodic table and its properties are mostly intermediate between them." },
+    { number: 18, symbol: "Ar", name: "Argon", atomicMass: 39.948, category: "noble gas", group: 18, period: 3, summary: "Argon is a chemical element with symbol Ar and atomic number 18. It is in group 18 of the periodic table and is a noble gas. Argon is the third-most abundant gas in the Earth's atmosphere." },
+    // ... (Adding more would be good, but for now let's stick to first 18-20 for demo, or I can add more later)
+    { number: 19, symbol: "K", name: "Potassium", atomicMass: 39.098, category: "alkali metal", group: 1, period: 4, summary: "Potassium is a chemical element with symbol K and atomic number 19. It is a silvery-white metal that is soft enough to be cut with a knife with little force." },
+    { number: 20, symbol: "Ca", name: "Calcium", atomicMass: 40.078, category: "alkaline earth metal", group: 2, period: 4, summary: "Calcium is a chemical element with symbol Ca and atomic number 20. An alkaline earth metal, calcium is a reactive metal that forms a dark oxide-nitride layer when exposed to air." },
+];
