@@ -46,58 +46,76 @@ export default function ResourceDetailPage({ params }: { params: { slug: string 
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+      {/* Breadcrumb Navigation */}
       <nav className="text-sm text-muted-foreground mb-6">
-        <Link href="/" className="hover:underline">Home</Link> /
-        <Link href="/resources" className="hover:underline"> Resources</Link> /
+        <Link href="/" className="hover:underline hover:text-foreground transition-colors">Home</Link>
+        <span className="mx-2">/</span>
+        <Link href="/resources" className="hover:underline hover:text-foreground transition-colors">Resources</Link>
+        <span className="mx-2">/</span>
         <span className="font-medium text-foreground">{resource.title}</span>
       </nav>
 
-      <article className="bg-card p-6 sm:p-8 border rounded-lg shadow-sm">
-        {/* Header */}
-        <div className="flex items-center gap-4 mb-6">
-          <span className="text-4xl">{resource.icon || '📄'}</span>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold">{resource.title}</h1>
-            {resource.category && (
-              <span className="inline-block mt-2 px-3 py-1 bg-secondary text-secondary-foreground text-sm rounded-full">
-                {resource.category}
-              </span>
-            )}
+      <article>
+        {/* Header - Clean and spacious */}
+        <header className="mb-8 pb-6 border-b">
+          <div className="flex items-start gap-4 mb-4">
+            <span className="text-4xl sm:text-5xl shrink-0">{resource.icon || '📄'}</span>
+            <div className="min-w-0">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight">{resource.title}</h1>
+              {resource.category && (
+                <span className="inline-block mt-3 px-3 py-1 bg-secondary text-secondary-foreground text-sm rounded-full">
+                  {resource.category}
+                </span>
+              )}
+            </div>
           </div>
-        </div>
+          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mt-4">
+            {resource.description}
+          </p>
+        </header>
 
-        {/* Description */}
-        <p className="text-lg text-muted-foreground mb-8 pb-6 border-b">
-          {resource.description}
-        </p>
-
-        {/* Content with enhanced prose styling */}
+        {/* Content - Full width, optimized prose styling */}
         <div
           className="
-            prose prose-slate dark:prose-invert max-w-none
-            prose-headings:mt-8 prose-headings:mb-4
-            prose-h2:text-2xl prose-h2:font-bold prose-h2:border-b prose-h2:pb-2
-            prose-h3:text-xl prose-h3:font-semibold
-            prose-h4:text-lg prose-h4:font-semibold
-            prose-p:my-4 prose-p:leading-relaxed
-            prose-ul:my-4 prose-ul:space-y-2
-            prose-li:my-1
-            prose-table:my-6 prose-table:w-full
-            prose-img:rounded-lg prose-img:mx-auto
-            prose-figure:my-8
-            [&_table]:block [&_table]:overflow-x-auto [&_table]:whitespace-nowrap sm:[&_table]:table sm:[&_table]:whitespace-normal
-            [&_th]:min-w-[80px] [&_td]:min-w-[80px]
+            prose prose-slate dark:prose-invert 
+            w-full max-w-none
+            
+            prose-headings:mt-8 prose-headings:mb-4 prose-headings:scroll-mt-20
+            prose-h2:text-xl sm:prose-h2:text-2xl prose-h2:font-bold prose-h2:border-b prose-h2:pb-2
+            prose-h3:text-lg sm:prose-h3:text-xl prose-h3:font-semibold
+            prose-h4:text-base sm:prose-h4:text-lg prose-h4:font-semibold
+            
+            prose-p:my-3 sm:prose-p:my-4 prose-p:leading-relaxed prose-p:text-[0.95rem] sm:prose-p:text-base
+            
+            prose-ul:my-4 prose-ul:pl-5 prose-ul:space-y-1
+            prose-ol:my-4 prose-ol:pl-5 prose-ol:space-y-1
+            prose-li:my-0.5 prose-li:leading-relaxed
+            
+            prose-img:rounded-lg prose-img:my-6 prose-img:w-full prose-img:max-w-full sm:prose-img:max-w-2xl prose-img:mx-auto prose-img:shadow-md
+            prose-figure:my-6 sm:prose-figure:my-8
+            
+            [&_table]:w-full [&_table]:my-6 [&_table]:text-sm
+            [&_table]:border-collapse [&_table]:rounded-lg [&_table]:overflow-hidden
+            [&_th]:p-2 sm:[&_th]:p-3 [&_th]:text-left [&_th]:bg-secondary [&_th]:font-semibold
+            [&_td]:p-2 sm:[&_td]:p-3 [&_td]:border-t
+            
+            [&_.table-wrapper]:w-full [&_.table-wrapper]:overflow-x-auto [&_.table-wrapper]:-mx-4 [&_.table-wrapper]:px-4
+            
+            [&>figure>img]:max-w-full
+            [&_figcaption]:text-center [&_figcaption]:text-sm [&_figcaption]:text-muted-foreground [&_figcaption]:mt-2
+            
+            [&_.bg-secondary\\/30]:bg-secondary/30 [&_.bg-secondary\\/30]:p-4 [&_.bg-secondary\\/30]:rounded-lg
           "
           dangerouslySetInnerHTML={{ __html: resource.content }}
         />
       </article>
 
       {/* Navigation */}
-      <div className="mt-8 flex justify-between">
+      <div className="mt-10 pt-6 border-t flex justify-between items-center">
         <Link
           href="/resources"
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors font-medium"
         >
           ← Back to Resources
         </Link>

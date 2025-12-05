@@ -176,4 +176,49 @@
   img {
     content-visibility: auto;
   }
+
+  /* Resource page responsive tables */
+  .prose table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (min-width: 640px) {
+    .prose table {
+      display: table;
+      overflow-x: visible;
+    }
+  }
+
+  /* Ensure tables don't break on mobile */
+  .prose td,
+  .prose th {
+    white-space: nowrap;
+  }
+
+  @media (min-width: 640px) {
+
+    .prose td,
+    .prose th {
+      white-space: normal;
+    }
+  }
+
+  /* Resource content figure styling */
+  .prose figure {
+    margin: 1.5rem 0;
+  }
+
+  .prose figure img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  @media (min-width: 640px) {
+    .prose figure {
+      margin: 2rem 0;
+    }
+  }
 }

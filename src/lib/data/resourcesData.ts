@@ -14,7 +14,7 @@ export const resourcesList: ResourceListItem[] = [
       <p>A <strong>logic gate</strong> is an idealized or physical device implementing a Boolean function. It performs a logical operation on one or more binary inputs to produce a single binary output. Logic gates are the fundamental building blocks of all digital circuits, from simple calculators to complex computer processors.</p>
       
       <figure class="my-6">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/ANSI_Logic_gates.svg/800px-ANSI_Logic_gates.svg.png" alt="Logic Gate Symbols" class="w-full max-w-lg mx-auto rounded-lg border bg-white p-2" />
+        <img src="https://www.svgrepo.com/show/312461/logic-gates.svg" alt="Logic Gate Symbols" class="w-full max-w-full sm:max-w-md md:max-w-lg mx-auto rounded-lg border bg-white p-4" onerror="this.style.display='none'" />
         <figcaption class="text-center text-sm text-muted-foreground mt-2">Standard logic gate symbols</figcaption>
       </figure>
 
@@ -80,7 +80,14 @@ export const resourcesList: ResourceListItem[] = [
       <p><strong>Ohm's Law</strong> is one of the most fundamental principles in electrical engineering. Named after German physicist <em>Georg Simon Ohm</em>, it describes the relationship between voltage (V), current (I), and resistance (R) in an electrical circuit.</p>
 
       <figure class="my-6">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Ohm%27s_Law_Pie_chart.svg/800px-Ohm%27s_Law_Pie_chart.svg.png" alt="Ohm's Law Triangle" class="w-full max-w-md mx-auto rounded-lg border" />
+        <div class="w-full max-w-full sm:max-w-sm md:max-w-md mx-auto rounded-lg border bg-white p-6 text-center">
+          <div class="text-6xl font-bold text-blue-600 mb-4">V = I × R</div>
+          <div class="grid grid-cols-3 gap-4 text-sm">
+            <div class="p-3 bg-blue-50 rounded"><strong>V</strong><br/>Voltage</div>
+            <div class="p-3 bg-green-50 rounded"><strong>I</strong><br/>Current</div>
+            <div class="p-3 bg-orange-50 rounded"><strong>R</strong><br/>Resistance</div>
+          </div>
+        </div>
         <figcaption class="text-center text-sm text-muted-foreground mt-2">The Ohm's Law Triangle — cover what you want to find!</figcaption>
       </figure>
 
@@ -162,7 +169,18 @@ export const resourcesList: ResourceListItem[] = [
       <p>Resistors use colored bands to indicate their resistance value. This system allows manufacturers to mark small components that would be impossible to print numbers on.</p>
 
       <figure class="my-6">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/4-Band_Resistor.svg/600px-4-Band_Resistor.svg.png" alt="Resistor Color Bands" class="w-full max-w-lg mx-auto rounded-lg border bg-white p-4" />
+        <div class="w-full max-w-full sm:max-w-md md:max-w-lg mx-auto rounded-lg border bg-white p-4">
+          <div class="flex items-center justify-center gap-1">
+            <div class="h-8 w-16 bg-amber-100 rounded-l-full"></div>
+            <div class="h-8 w-3 bg-amber-600"></div>
+            <div class="h-8 w-3 bg-green-600"></div>
+            <div class="h-8 w-3 bg-red-600"></div>
+            <div class="h-8 w-6"></div>
+            <div class="h-8 w-3 bg-yellow-500"></div>
+            <div class="h-8 w-16 bg-amber-100 rounded-r-full"></div>
+          </div>
+          <div class="text-center mt-3 text-sm text-gray-600">Example: Brown-Green-Red-Gold = 1500Ω ±5%</div>
+        </div>
         <figcaption class="text-center text-sm text-muted-foreground mt-2">Resistor with color bands</figcaption>
       </figure>
 
