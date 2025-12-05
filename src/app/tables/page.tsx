@@ -2,6 +2,23 @@
 import Link from 'next/link';
 import { tableList } from '@/lib/data/siteLists';
 import type { ListItem } from '@/lib/types';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Reference Tables & Charts | TablesAndCalc',
+  description: 'Free reference tables including periodic table, logarithm tables, exponential tables, AWG wire gauge charts, and resistor color codes.',
+  keywords: [
+    'periodic table',
+    'logarithm table',
+    'exponential table',
+    'wire gauge chart',
+    'AWG table',
+    'resistor color codes',
+    'reference tables',
+    'math tables',
+    'engineering charts',
+  ],
+};
 
 // Helper function to group tables by category
 function groupByCategory(tables: (ListItem & { category: string })[]) {

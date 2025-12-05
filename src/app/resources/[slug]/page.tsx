@@ -53,12 +53,12 @@ export default function ResourceDetailPage({ params }: { params: { slug: string 
         <span className="font-medium text-foreground">{resource.title}</span>
       </nav>
 
-      <article className="bg-card p-8 border rounded-lg shadow-sm">
+      <article className="bg-card p-6 sm:p-8 border rounded-lg shadow-sm">
         {/* Header */}
         <div className="flex items-center gap-4 mb-6">
           <span className="text-4xl">{resource.icon || '📄'}</span>
           <div>
-            <h1 className="text-3xl font-bold">{resource.title}</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold">{resource.title}</h1>
             {resource.category && (
               <span className="inline-block mt-2 px-3 py-1 bg-secondary text-secondary-foreground text-sm rounded-full">
                 {resource.category}
@@ -72,9 +72,23 @@ export default function ResourceDetailPage({ params }: { params: { slug: string 
           {resource.description}
         </p>
 
-        {/* Content */}
+        {/* Content with enhanced prose styling */}
         <div
-          className="prose prose-slate dark:prose-invert max-w-none"
+          className="
+            prose prose-slate dark:prose-invert max-w-none
+            prose-headings:mt-8 prose-headings:mb-4
+            prose-h2:text-2xl prose-h2:font-bold prose-h2:border-b prose-h2:pb-2
+            prose-h3:text-xl prose-h3:font-semibold
+            prose-h4:text-lg prose-h4:font-semibold
+            prose-p:my-4 prose-p:leading-relaxed
+            prose-ul:my-4 prose-ul:space-y-2
+            prose-li:my-1
+            prose-table:my-6 prose-table:w-full
+            prose-img:rounded-lg prose-img:mx-auto
+            prose-figure:my-8
+            [&_table]:block [&_table]:overflow-x-auto [&_table]:whitespace-nowrap sm:[&_table]:table sm:[&_table]:whitespace-normal
+            [&_th]:min-w-[80px] [&_td]:min-w-[80px]
+          "
           dangerouslySetInnerHTML={{ __html: resource.content }}
         />
       </article>

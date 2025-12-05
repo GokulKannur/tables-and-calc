@@ -162,7 +162,7 @@ export const resourcesList: ResourceListItem[] = [
       <p>Resistors use colored bands to indicate their resistance value. This system allows manufacturers to mark small components that would be impossible to print numbers on.</p>
 
       <figure class="my-6">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Resistor.svg/800px-Resistor.svg.png" alt="Resistor Color Bands" class="w-full max-w-lg mx-auto rounded-lg border bg-white p-4" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/4-Band_Resistor.svg/600px-4-Band_Resistor.svg.png" alt="Resistor Color Bands" class="w-full max-w-lg mx-auto rounded-lg border bg-white p-4" />
         <figcaption class="text-center text-sm text-muted-foreground mt-2">Resistor with color bands</figcaption>
       </figure>
 

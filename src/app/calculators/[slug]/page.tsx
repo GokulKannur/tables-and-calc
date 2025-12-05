@@ -172,6 +172,61 @@ export default function CalculatorPage({ params }: PageProps) {
           ))}
         </div>
       )}
+
+      {/* JSON-LD Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": calculatorData.title,
+            "description": calculatorData.description,
+            "applicationCategory": "UtilityApplication",
+            "operatingSystem": "Web Browser",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "url": `https://tablesandcalc.online/calculators/${params.slug}`,
+            "provider": {
+              "@type": "Organization",
+              "name": "TablesAndCalc",
+              "url": "https://tablesandcalc.online"
+            }
+          })
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://tablesandcalc.online"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Calculators",
+                "item": "https://tablesandcalc.online/calculators"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": calculatorData.title,
+                "item": `https://tablesandcalc.online/calculators/${params.slug}`
+              }
+            ]
+          })
+        }}
+      />
     </div>
   );
 }
