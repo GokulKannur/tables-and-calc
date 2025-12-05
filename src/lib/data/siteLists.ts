@@ -198,6 +198,17 @@ export const calculatorList: CalculatorListItem[] = [
     },
   },
   {
+    slug: 'gst-calculator',
+    title: 'GST Calculator India',
+    description: 'Calculate GST (Goods and Services Tax) with CGST and SGST breakdown. Add or remove GST instantly.',
+    emoji: '🇮🇳',
+    category: 'Financial',
+    details: {
+      whatIs: 'A GST Calculator helps you calculate the Goods and Services Tax applicable in India. It supports all GST rates (5%, 12%, 18%, 28%) and shows the CGST/SGST split.',
+      formula: 'GST Amount = Original Price × (GST Rate / 100); Final Price = Original Price + GST Amount',
+    },
+  },
+  {
     slug: 'matrix-calculator',
     title: 'Matrix Calculator',
     description: 'Perform matrix operations like addition, multiplication, and finding the inverse.',

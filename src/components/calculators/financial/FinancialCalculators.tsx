@@ -213,6 +213,154 @@ const InflationCalculator = () => {
   );
 }
 
+// GST Calculator for India
+const GSTCalculator = () => {
+  const [amount, setAmount] = useState('1000');
+  const [gstRate, setGstRate] = useState('18');
+  const [mode, setMode] = useState<'add' | 'remove'>('add');
+  const [result, setResult] = useState<{
+    originalAmount: number;
+    gstAmount: number;
+    finalAmount: number;
+    cgst: number;
+    sgst: number;
+  } | null>(null);
+
+  const gstRates = [
+    { value: '5', label: '5% (Essential goods)' },
+    { value: '12', label: '12% (Standard goods)' },
+    { value: '18', label: '18% (Most services)' },
+    { value: '28', label: '28% (Luxury items)' },
+  ];
+
+  const calculate = () => {
+    const amt = parseFloat(amount);
+    const rate = parseFloat(gstRate);
+
+    if (amt > 0 && rate >= 0) {
+      if (mode === 'add') {
+        // Add GST to amount
+        const gstAmount = (amt * rate) / 100;
+        const finalAmount = amt + gstAmount;
+        setResult({
+          originalAmount: amt,
+          gstAmount: gstAmount,
+          finalAmount: finalAmount,
+          cgst: gstAmount / 2,
+          sgst: gstAmount / 2,
+        });
+      } else {
+        // Remove GST from amount (amount includes GST)
+        const originalAmount = (amt * 100) / (100 + rate);
+        const gstAmount = amt - originalAmount;
+        setResult({
+          originalAmount: originalAmount,
+          gstAmount: gstAmount,
+          finalAmount: amt,
+          cgst: gstAmount / 2,
+          sgst: gstAmount / 2,
+        });
+      }
+    }
+  };
+
+  return (
+    <div className="space-y-6 max-w-md mx-auto">
+      {/* Mode Toggle */}
+      <div className="flex rounded-lg border overflow-hidden">
+        <button
+          onClick={() => setMode('add')}
+          className={cn(
+            "flex-1 py-2.5 text-sm font-medium transition-colors",
+            mode === 'add'
+              ? "bg-primary text-primary-foreground"
+              : "bg-background hover:bg-secondary"
+          )}
+        >
+          Add GST
+        </button>
+        <button
+          onClick={() => setMode('remove')}
+          className={cn(
+            "flex-1 py-2.5 text-sm font-medium transition-colors",
+            mode === 'remove'
+              ? "bg-primary text-primary-foreground"
+              : "bg-background hover:bg-secondary"
+          )}
+        >
+          Remove GST
+        </button>
+      </div>
+
+      <div className="grid gap-4">
+        <InputGroup
+          label={mode === 'add' ? "Amount (Excluding GST)" : "Amount (Including GST)"}
+          value={amount}
+          onChange={(e: any) => setAmount(e.target.value)}
+          icon={DollarSign}
+          placeholder="Enter amount in ₹"
+        />
+
+        <div className="space-y-2">
+          <label className="text-sm font-medium leading-none">GST Rate</label>
+          <select
+            value={gstRate}
+            onChange={(e) => setGstRate(e.target.value)}
+            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            {gstRates.map((rate) => (
+              <option key={rate.value} value={rate.value}>
+                {rate.label}
+              </option>
+            ))}
+            <option value="0">0% (Exempt)</option>
+            <option value="3">3% (Gold/Silver)</option>
+          </select>
+        </div>
+      </div>
+
+      <CalculateButton onClick={calculate} />
+
+      {result && (
+        <div className="space-y-4">
+          {/* Main Result */}
+          <ResultCard
+            label={mode === 'add' ? "Total Amount (with GST)" : "Original Amount (without GST)"}
+            value={`₹${mode === 'add' ? result.finalAmount.toFixed(2) : result.originalAmount.toFixed(2)}`}
+          />
+
+          {/* Breakdown */}
+          <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4">
+            <h4 className="font-medium mb-3 text-sm">GST Breakdown</h4>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Original Amount:</span>
+                <span className="font-medium">₹{result.originalAmount.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">CGST ({parseFloat(gstRate) / 2}%):</span>
+                <span className="font-medium">₹{result.cgst.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">SGST ({parseFloat(gstRate) / 2}%):</span>
+                <span className="font-medium">₹{result.sgst.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between border-t pt-2 mt-2">
+                <span className="text-muted-foreground">Total GST ({gstRate}%):</span>
+                <span className="font-medium text-primary">₹{result.gstAmount.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between border-t pt-2">
+                <span className="font-medium">Final Amount:</span>
+                <span className="font-bold text-lg">₹{result.finalAmount.toFixed(2)}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // --- Main Component to select which calculator to show ---
 interface FinancialCalculatorsProps {
   slug: string;
@@ -230,6 +378,8 @@ export default function FinancialCalculators({ slug }: FinancialCalculatorsProps
       return <DiscountCalculator />;
     case 'inflation-calculator':
       return <InflationCalculator />;
+    case 'gst-calculator':
+      return <GSTCalculator />;
     default:
       return <div className="text-center text-destructive p-4">Calculator not found or not yet implemented.</div>;
   }

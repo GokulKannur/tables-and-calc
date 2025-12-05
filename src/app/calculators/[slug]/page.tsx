@@ -11,6 +11,7 @@ import BmiCalculator from '@/components/calculators/health/BmiCalculator';
 import GpaCalculator from '@/components/calculators/math/GpaCalculator';
 import NumberConverter from '@/components/calculators/math/NumberConverter';
 import GeoGebraCalculator from '@/components/calculators/math/GeoGebraCalculator';
+import TrigonometryCalculator from '@/components/calculators/math/TrigonometryCalculator';
 import ElectricityCalculators from '@/components/calculators/energy/ElectricityCalculators';
 import FinancialCalculators from '@/components/calculators/financial/FinancialCalculators';
 import MatrixCalculator from '@/components/calculators/math/MatrixCalculator';
@@ -78,8 +79,10 @@ export default function CalculatorPage({ params }: PageProps) {
       case 'simple-interest-calculator':
       case 'discount-calculator':
       case 'inflation-calculator':
+      case 'gst-calculator':
         return <FinancialCalculators slug={params.slug} />;
       case 'tip-calculator': return <TipCalculator />;
+      case 'trigonometry-calculator': return <TrigonometryCalculator />;
 
       // Energy
       case 'electricity-bill-calculator':
