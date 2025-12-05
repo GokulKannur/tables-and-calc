@@ -7,7 +7,7 @@ import PercentageCalculator from '@/components/calculators/math/PercentageCalcul
 import BmiCalculator from '@/components/calculators/health/BmiCalculator';
 import GpaCalculator from '@/components/calculators/math/GpaCalculator';
 import NumberConverter from '@/components/calculators/math/NumberConverter';
-import TrigonometryCalculator from '@/components/calculators/math/TrigonometryCalculator';
+import TrigonometryCalc from '@/components/calculators/math/TrigonometryCalc';
 import FinancialCalculators from '@/components/calculators/financial/FinancialCalculators';
 import ElectricityCalculators from '@/components/calculators/energy/ElectricityCalculators';
 import MatrixCalculator from '@/components/calculators/math/MatrixCalculator';
@@ -31,7 +31,7 @@ const componentMap: { [key: string]: ComponentMapValue } = {
   'percentage-calculator': PercentageCalculator,
   'bmi-calculator': BmiCalculator,
   'gpa-calculator': GpaCalculator,
-  'trigonometry-calculator': TrigonometryCalculator,
+  'trigonometry-calculator': TrigonometryCalc,
 
   // Grouped calculators that require the slug prop
   'mortgage-calculator': { component: FinancialCalculators, needsSlug: true },
